@@ -1154,6 +1154,109 @@ const blocks = [
 		},
 	},
 	{
+		name: 'DangerBlocks',
+		template: '%1',
+		skeleton: 'basic_text',
+		color: {
+			default: EntryStatic.colorSet.common.TRANSPARENT,
+			darken: EntryStatic.colorSet.common.TRANSPARENT
+		},
+		params: [
+			{
+				type: 'Text',
+				text: 'Danger',
+				color: EntryStatic.colorSet.common.TEXT,
+				class: 'bold',
+				align: 'center'
+			}
+		],
+		def: [],
+		map: {},
+		class: 'text'
+	},
+	{
+		name: 'DELETEALLMYPROJECT',
+		template: '자신의 모든 작품 삭제%1',
+		skeleton: 'basic',
+		color: {
+			default: '#FF0000',
+			darken: '#FF0000'
+		},
+		params: [
+			{
+				type: 'Indicator',
+				img: 'block_icon/start_icon_play.svg',
+				size: 11,
+			}
+		],
+		def: [
+			null
+		],
+		map: {},
+		class: 'text',
+		func: async (sprite, script) => {
+			$.get(`https://playentry.org/api/project/find?user=${user._id}`,
+				get => {get.data.forEach(project => {
+　　				fetch(`https://playentry.org/api/project/${project._id}`, {method: 'DELETE'})
+　				})
+			});
+			alert('자신의 모든 작품이 삭제되었습니다.');
+			return script.callReturn();
+		},
+	},
+	{
+		name: 'DELETEALLMYFREEDISCUSS',
+		template: '자신의 모든 엔트리 이야기 글 삭제%1',
+		skeleton: 'basic',
+		color: {
+			default: '#FF0000',
+			darken: '#FF0000'
+		},
+		params: [
+			{
+				type: 'Indicator',
+				img: 'block_icon/start_icon_play.svg',
+				size: 11,
+			}
+		],
+		def: [
+			null
+		],
+		map: {},
+		class: 'text',
+		func: async (sprite, script) => {
+			$.get(`https://playentry.org/api/discuss/find?username=${user.username}&title=&search_title=&sort=created&rows=0&page=1&category=free`,d=>d.data.forEach(({_id})=>$.ajax({url:"https://playentry.org/api/discuss/"+_id,type:"DELETE"})));
+			alert('자신의 모든 엔트리 이야기 글이 삭제되었습니다.');
+			return script.callReturn();
+		},
+	},
+	{
+		name: 'DELETEALLMYTIPSDISCUSS',
+		template: '자신의 모든 노하우&팁 글 삭제%1',
+		skeleton: 'basic',
+		color: {
+			default: '#FF0000',
+			darken: '#FF0000'
+		},
+		params: [
+			{
+				type: 'Indicator',
+				img: 'block_icon/start_icon_play.svg',
+				size: 11,
+			}
+		],
+		def: [
+			null
+		],
+		map: {},
+		class: 'text',
+		func: async (sprite, script) => {
+			$.get(`https://playentry.org/api/discuss/find?username=${user.username}&title=&search_title=&sort=created&rows=0&page=1&category=tips`,d=>d.data.forEach(({_id})=>$.ajax({url:"https://playentry.org/api/discuss/"+_id,type:"DELETE"})));
+			alert('자신의 모든 노하우&팁 글이 삭제되었습니다.');
+			return script.callReturn();
+		},
+	},
+	{
 		name: 'copy',
 		template: '%1',
 		skeleton: 'basic_text',
@@ -1177,4 +1280,4 @@ const blocks = [
 ]
 
 LibraryCreator.start(blocks, 'API', '특급');
-console.log('%cExpress Block 3.0%c\n\n62045의 특급 블럭을 사용해주셔서 감사합니다.\n이 블럭은 tica_님의 EntBlocks 2.2를 사용하여 제작하였습니다.\nhttps://github.com/thoratica/entblocks\n\n%c엔트리: https://playentry.org/62045\nGitHub: https://github.com/entry62045\n특급 블럭: https://github.com/entry62045/expressblock', 'font-family: 맑은 고딕; color: #ffffff; background-color: #66AA33; border-radius: 10px; font-size: 26px; padding : 20px 30px', 'color: #000000; background-color: #FFFFFF; font-size: 18px;', 'color: #000000; background-color: #FFFFFF; font-size: 16px;');
+console.log('%cExpress Block 3.1%c\n\n62045의 특급 블럭을 사용해주셔서 감사합니다.\n이 블럭은 tica_님의 EntBlocks 2.2를 사용하여 제작하였습니다.\nhttps://github.com/thoratica/entblocks\n\n%c엔트리: https://playentry.org/62045\nGitHub: https://github.com/entry62045\n특급 블럭: https://github.com/entry62045/expressblock', 'font-family: 맑은 고딕; color: #ffffff; background-color: #66AA33; border-radius: 10px; font-size: 26px; padding : 20px 30px', 'color: #000000; background-color: #FFFFFF; font-size: 18px;', 'color: #000000; background-color: #FFFFFF; font-size: 16px;');
