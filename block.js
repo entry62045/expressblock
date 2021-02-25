@@ -531,7 +531,7 @@ const blocks = [
 		def: [
 			{
 				type: 'text',
-				params: ['62045']
+				params: ['entry62045']
 			},
 			null
 		],
@@ -706,6 +706,134 @@ const blocks = [
 			let blockedjson = eval(blockeddata);
 			let blockeddone = blockedjson['isBlocked'];
 			return blockeddone;
+		},
+	},
+	{
+		name: 'FindUserBlockedVar',
+		template: '%1 유저는 영구정지되었는가?',
+		skeleton: 'basic_string_field',
+		color: {
+			default: '#383838',
+			darken: '#383838'
+		},
+		params: [
+			{
+				type: 'Block',
+				accept: 'string'
+			}
+		],
+		def: [
+			{
+				type: 'text',
+				params: ['entry62045']
+			}
+		],
+		map: {
+			USERBLOCKEDNAME: 0
+		},
+		class: 'text',
+		func: async (sprite, script) => {
+			let blockedres = await fetch('https://playentry.org/api/getUserByusername/' + script.getValue('USERBLOCKEDNAME', script));
+			let blockeddata = await blockedres.json();
+			let blockedjson = eval(blockeddata);
+			let blockeddone = blockedjson['isBlocked'];
+			return blockeddone;
+		},
+	},
+	{
+		name: 'FindUserDes',
+		template: '%1 유저의 설명',
+		skeleton: 'basic_string_field',
+		color: {
+			default: '#383838',
+			darken: '#383838'
+		},
+		params: [
+			{
+				type: 'Block',
+				accept: 'string'
+			}
+		],
+		def: [
+			{
+				type: 'text',
+				params: ['entry62045']
+			}
+		],
+		map: {
+			USERBLOCKEDNAME: 0
+		},
+		class: 'text',
+		func: async (sprite, script) => {
+			let desres = await fetch('https://playentry.org/api/getUserByusername/' + script.getValue('USERBLOCKEDNAME', script));
+			let desdata = await desres.json();
+			let desjson = eval(desdata);
+			let desdone = desjson['description'];
+			return desdone;
+		},
+	},
+	{
+		name: 'FindUserRole',
+		template: '%1 유저의 역할',
+		skeleton: 'basic_string_field',
+		color: {
+			default: '#383838',
+			darken: '#383838'
+		},
+		params: [
+			{
+				type: 'Block',
+				accept: 'string'
+			}
+		],
+		def: [
+			{
+				type: 'text',
+				params: ['entry62045']
+			}
+		],
+		map: {
+			USERBLOCKEDNAME: 0
+		},
+		class: 'text',
+		func: async (sprite, script) => {
+			let roleres = await fetch('https://playentry.org/api/getUserByusername/' + script.getValue('USERBLOCKEDNAME', script));
+			let roledata = await roleres.json();
+			let rolejson = eval(roledata);
+			let roledone = rolejson['role'];
+			return roledone;
+		},
+	},
+	{
+		name: 'FindUserGroup',
+		template: '%1 유저의 기본 학급',
+		skeleton: 'basic_string_field',
+		color: {
+			default: '#383838',
+			darken: '#383838'
+		},
+		params: [
+			{
+				type: 'Block',
+				accept: 'string'
+			}
+		],
+		def: [
+			{
+				type: 'text',
+				params: ['entry62045']
+			}
+		],
+		map: {
+			USERBLOCKEDNAME: 0
+		},
+		class: 'text',
+		func: async (sprite, script) => {
+			let groupres = await fetch('https://playentry.org/api/getUserByusername/' + script.getValue('USERBLOCKEDNAME', script));
+			let groupdata = await groupres.json();
+			let groupjson = eval(groupdata);
+			let groupdone = groupjson['primaryGroup'];
+			return groupdone;
 		},
 	},
 	{
@@ -1313,4 +1441,4 @@ const blocks = [
 ]
 
 LibraryCreator.start(blocks, 'API', '특급');
-console.log('%cExpress Block 3.1.1%c\n\n62045의 특급 블럭을 사용해주셔서 감사합니다.\n이 블럭은 tica_님의 EntBlocks 2.2를 사용하여 제작하였습니다.\nhttps://github.com/thoratica/entblocks\n\n%c엔트리: https://playentry.org/62045\nGitHub: https://github.com/entry62045\n특급 블럭: https://github.com/entry62045/expressblock', 'font-family: 맑은 고딕; color: #ffffff; background-color: #66AA33; border-radius: 10px; font-size: 26px; padding : 20px 30px', 'color: #000000; background-color: #FFFFFF; font-size: 18px;', 'color: #000000; background-color: #FFFFFF; font-size: 16px;');
+console.log('%cExpress Block 3.2%c\n\n62045의 특급 블럭을 사용해주셔서 감사합니다.\n이 블럭은 tica_님의 EntBlocks 2.2를 사용하여 제작하였습니다.\nhttps://github.com/thoratica/entblocks\n\n%c엔트리: https://playentry.org/62045\nGitHub: https://github.com/entry62045\n특급 블럭: https://github.com/entry62045/expressblock', 'font-family: 맑은 고딕; color: #ffffff; background-color: #66AA33; border-radius: 10px; font-size: 26px; padding : 20px 30px', 'color: #000000; background-color: #FFFFFF; font-size: 18px;', 'color: #000000; background-color: #FFFFFF; font-size: 16px;');
