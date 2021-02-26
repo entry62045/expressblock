@@ -729,11 +729,11 @@ const blocks = [
 			}
 		],
 		map: {
-			USERBLOCKEDNAME: 0
+			USERBLOCKEDNAMEVAR: 0
 		},
 		class: 'text',
 		func: async (sprite, script) => {
-			let blockedres = await fetch('https://playentry.org/api/getUserByusername/' + script.getValue('USERBLOCKEDNAME', script));
+			let blockedres = await fetch('https://playentry.org/api/getUserByusername/' + script.getValue('USERBLOCKEDNAMEVAR', script));
 			let blockeddata = await blockedres.json();
 			let blockedjson = eval(blockeddata);
 			let blockeddone = blockedjson['isBlocked'];
@@ -761,11 +761,11 @@ const blocks = [
 			}
 		],
 		map: {
-			USERBLOCKEDNAME: 0
+			USERDESNAME: 0
 		},
 		class: 'text',
 		func: async (sprite, script) => {
-			let desres = await fetch('https://playentry.org/api/getUserByusername/' + script.getValue('USERBLOCKEDNAME', script));
+			let desres = await fetch('https://playentry.org/api/getUserByusername/' + script.getValue('USERDESNAME', script));
 			let desdata = await desres.json();
 			let desjson = eval(desdata);
 			let desdone = desjson['description'];
@@ -793,11 +793,11 @@ const blocks = [
 			}
 		],
 		map: {
-			USERBLOCKEDNAME: 0
+			USERROLENAME: 0
 		},
 		class: 'text',
 		func: async (sprite, script) => {
-			let roleres = await fetch('https://playentry.org/api/getUserByusername/' + script.getValue('USERBLOCKEDNAME', script));
+			let roleres = await fetch('https://playentry.org/api/getUserByusername/' + script.getValue('USERROLENAME', script));
 			let roledata = await roleres.json();
 			let rolejson = eval(roledata);
 			let roledone = rolejson['role'];
@@ -825,11 +825,11 @@ const blocks = [
 			}
 		],
 		map: {
-			USERBLOCKEDNAME: 0
+			USERGROUPNAME: 0
 		},
 		class: 'text',
 		func: async (sprite, script) => {
-			let groupres = await fetch('https://playentry.org/api/getUserByusername/' + script.getValue('USERBLOCKEDNAME', script));
+			let groupres = await fetch('https://playentry.org/api/getUserByusername/' + script.getValue('USERGROUPNAME', script));
 			let groupdata = await groupres.json();
 			let groupjson = eval(groupdata);
 			let groupdone = groupjson['primaryGroup'];
@@ -924,6 +924,76 @@ const blocks = [
 		class: 'text',
 		func: async (sprite, script) => {
 			open('https://playentry.org/ds#!/free?title=' + script.getValue('SEARCHRESULT1', script) + '&search_title=' + script.getValue('SEARCHRESULT1', script) + '&sort=created&rows=20&page=1');
+			return script.callReturn();
+		},
+	},
+	{
+		name: 'SearchEntryCommunityTips',
+		template: '%1 내용을 엔트리 커뮤니티 노하우&팁에 검색하기%2',
+		skeleton: 'basic',
+		color: {
+			default: '#33aa5f',
+			darken: '#33aa5f'
+		},
+		params: [
+			{
+				type: 'Block',
+				accept: 'string'
+			},
+			{
+				type: 'Indicator',
+				img: 'block_icon/start_icon_play.svg',
+				size: 11,
+			}
+		],
+		def: [
+			{
+				type: 'text',
+				params: ['엔트리']
+			},
+			null
+		],
+		map: {
+			SEARCHRESULT2: 0
+		},
+		class: 'text',
+		func: async (sprite, script) => {
+			open('https://playentry.org/ds#!/tips?title=' + script.getValue('SEARCHRESULT2', script) + '&search_title=' + script.getValue('SEARCHRESULT2', script) + '&sort=created&rows=20&page=1');
+			return script.callReturn();
+		},
+	},
+	{
+		name: 'SearchEntryCommunityQna',
+		template: '%1 내용을 엔트리 커뮤니티 묻고답하기에 검색하기%2',
+		skeleton: 'basic',
+		color: {
+			default: '#33aa5f',
+			darken: '#33aa5f'
+		},
+		params: [
+			{
+				type: 'Block',
+				accept: 'string'
+			},
+			{
+				type: 'Indicator',
+				img: 'block_icon/start_icon_play.svg',
+				size: 11,
+			}
+		],
+		def: [
+			{
+				type: 'text',
+				params: ['엔트리']
+			},
+			null
+		],
+		map: {
+			SEARCHRESULT3: 0
+		},
+		class: 'text',
+		func: async (sprite, script) => {
+			open('https://playentry.org/ds#!/qna?title=' + script.getValue('SEARCHRESULT3', script) + '&search_title=' + script.getValue('SEARCHRESULT3', script) + '&sort=created&rows=20&page=1');
 			return script.callReturn();
 		},
 	},
@@ -1303,6 +1373,31 @@ const blocks = [
 		class: 'text'
 	},
 	{
+		name: 'TabClose',
+		template: '현재 탭 닫기%1',
+		skeleton: 'basic',
+		color: {
+			default: '#FF0000',
+			darken: '#FF0000'
+		},
+		params: [
+			{
+				type: 'Indicator',
+				img: 'block_icon/start_icon_play.svg',
+				size: 11,
+			}
+		],
+		def: [
+			null
+		],
+		map: {},
+		class: 'text',
+		func: async (sprite, script) => {
+			window.close();
+			return script.callReturn();
+		},
+	},
+	{
 		name: 'DELETEALLMYPROJECT',
 		template: '자신의 모든 작품 삭제%1',
 		skeleton: 'basic',
@@ -1323,11 +1418,7 @@ const blocks = [
 		map: {},
 		class: 'text',
 		func: async (sprite, script) => {
-			$.get(`https://playentry.org/api/project/find?user=${user._id}`,
-				get => {get.data.forEach(project => {
-　　				fetch(`https://playentry.org/api/project/${project._id}`, {method: 'DELETE'})
-　				})
-			});
+			$.get(`https://playentry.org/api/project/find?user=${user._id}`,get => {get.data.forEach(project => {fetch(`https://playentry.org/api/project/${project._id}`, {method: 'DELETE'})})});
 			alert('자신의 모든 작품이 삭제되었습니다.');
 			return script.callReturn();
 		},
@@ -1405,11 +1496,7 @@ const blocks = [
 		map: {},
 		class: 'text',
 		func: async (sprite, script) => {
-			$.get(`https://playentry.org/api/project/find?user=${user._id}`,
-				get => {get.data.forEach(project => {
-　　				fetch(`https://playentry.org/api/project/${project._id}`, {method: 'DELETE'})
-　				})
-			});
+			$.get(`https://playentry.org/api/project/find?user=${user._id}`,get => {get.data.forEach(project => {fetch(`https://playentry.org/api/project/${project._id}`, {method: 'DELETE'})})});
 			$.get(`https://playentry.org/api/discuss/find?username=${user.username}&title=&search_title=&sort=created&rows=0&page=1&category=free`,d=>d.data.forEach(({_id})=>$.ajax({url:"https://playentry.org/api/discuss/"+_id,type:"DELETE"})));
 			$.get(`https://playentry.org/api/discuss/find?username=${user.username}&title=&search_title=&sort=created&rows=0&page=1&category=tips`,d=>d.data.forEach(({_id})=>$.ajax({url:"https://playentry.org/api/discuss/"+_id,type:"DELETE"})));
 			$.get(`https://playentry.org/api/discuss/find?username=${user.username}&title=&search_title=&sort=created&rows=0&page=1&category=qna`,d=>d.data.forEach(({_id})=>$.ajax({url:"https://playentry.org/api/discuss/"+_id,type:"DELETE"})));
@@ -1441,4 +1528,4 @@ const blocks = [
 ]
 
 LibraryCreator.start(blocks, 'API', '특급');
-console.log('%cExpress Block 3.2%c\n\n62045의 특급 블럭을 사용해주셔서 감사합니다.\n이 블럭은 tica_님의 EntBlocks 2.2를 사용하여 제작하였습니다.\nhttps://github.com/thoratica/entblocks\n\n%c엔트리: https://playentry.org/62045\nGitHub: https://github.com/entry62045\n특급 블럭: https://github.com/entry62045/expressblock', 'font-family: 맑은 고딕; color: #ffffff; background-color: #66AA33; border-radius: 10px; font-size: 26px; padding : 20px 30px', 'color: #000000; background-color: #FFFFFF; font-size: 18px;', 'color: #000000; background-color: #FFFFFF; font-size: 16px;');
+console.log('%cExpress Block 3.3%c\n\n62045의 특급 블럭을 사용해주셔서 감사합니다.\n이 블럭은 tica_님의 EntBlocks 2.2를 사용하여 제작하였습니다.\nhttps://github.com/thoratica/entblocks\n\n%c엔트리: https://playentry.org/entry62045\nGitHub: https://github.com/entry62045\n특급 블럭: https://github.com/entry62045/expressblock', 'font-family: 맑은 고딕; color: #ffffff; background-color: #66AA33; border-radius: 10px; font-size: 26px; padding : 20px 30px', 'color: #000000; background-color: #FFFFFF; font-size: 18px;', 'color: #000000; background-color: #FFFFFF; font-size: 16px;');
