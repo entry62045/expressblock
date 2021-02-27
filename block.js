@@ -360,7 +360,22 @@ const LibraryCreator = {
 		}
 	}
 }
-let blockPOST
+// 클립보드 복사 함수
+function copy(val) {
+	var dummy = document.createElement("textarea");
+	document.body.appendChild(dummy);
+	dummy.value = val;
+	dummy.select();
+	try {
+		document.execCommand("copy");
+	}
+	catch {
+		alert('복사하기를 지원하지 않습니다.');
+	}
+	finally {
+		document.body.removeChild(dummy);
+	}
+}
 const blocks = [
 	{
 		name: 'webblocks',
@@ -587,6 +602,57 @@ const blocks = [
 		},
 	},
 	{
+		name: 'CopytoClipboard',
+		template: '%1 내용을 클립보드에 복사하기%2',
+		skeleton: 'basic',
+		color: {
+			default: '#00b6b1',
+			darken: '#00b6b1'
+		},
+		params: [
+			{
+				type: 'Block',
+				accept: 'string'
+			},
+			{
+				type: 'Indicator',
+				img: 'block_icon/start_icon_play.svg',
+				size: 11,
+			}
+		],
+		def: [
+			{
+				type: 'text',
+				params: ['엔트리']
+			},
+			null
+		],
+		map: {
+			TEXTTOCOPY: 0
+		},
+		class: 'text',
+		func: async (sprite, script) => {
+			copy(script.getValue('TEXTTOCOPY', script));
+			return script.callReturn();
+		},
+	},
+	{
+	  name: 'GetBrowser',
+	  template: '브라우저 이름',
+	  skeleton: 'basic_string_field',
+	  color: {
+		default: '#00b6b1',
+		darken: '#00b6b1'
+	  },
+	  params: [],
+	  def: [],
+	  map: {},
+	  class: 'text',
+	  func: async (sprite, script) => {
+		return Entry.userAgent
+	  },
+	},
+	{
 		name: 'JsonBlocks',
 		template: '%1',
 		skeleton: 'basic_text',
@@ -738,6 +804,40 @@ const blocks = [
 			let blockedjson = eval(blockeddata);
 			let blockeddone = blockedjson['isBlocked'];
 			return blockeddone;
+		},
+	},
+	{
+		name: 'FindUserExist',
+		template: '%1 유저는 엔트리에 가입되었는가?',
+		skeleton: 'basic_boolean_field',
+		color: {
+			default: '#383838',
+			darken: '#383838'
+		},
+		params: [
+			{
+				type: 'Block',
+				accept: 'string'
+			}
+		],
+		def: [
+			{
+				type: 'text',
+				params: ['entry62045']
+			}
+		],
+		map: {
+			USEREXISTNAME: 0
+		},
+		class: 'text',
+		func: async (sprite, script) => {
+			try {
+				await fetch('https://playentry.org/api/getUserByusername/' + script.getValue('USERBLOCKEDNAME', script));
+				return true;
+			}
+			catch {
+				return false;
+			}
 		},
 	},
 	{
@@ -1528,4 +1628,4 @@ const blocks = [
 ]
 
 LibraryCreator.start(blocks, 'API', '특급');
-console.log('%cExpress Block 3.3%c\n\n62045의 특급 블럭을 사용해주셔서 감사합니다.\n이 블럭은 tica_님의 EntBlocks 2.2를 사용하여 제작하였습니다.\nhttps://github.com/thoratica/entblocks\n\n%c엔트리: https://playentry.org/entry62045\nGitHub: https://github.com/entry62045\n특급 블럭: https://github.com/entry62045/expressblock', 'font-family: 맑은 고딕; color: #ffffff; background-color: #66AA33; border-radius: 10px; font-size: 26px; padding : 20px 30px', 'color: #000000; background-color: #FFFFFF; font-size: 18px;', 'color: #000000; background-color: #FFFFFF; font-size: 16px;');
+console.log('%cExpress Block 4.0%c\n\n62045의 특급 블럭을 사용해주셔서 감사합니다.\n이 블럭은 tica_님의 EntBlocks 2.2를 사용하여 제작하였습니다.\nhttps://github.com/thoratica/entblocks\n\n%c엔트리: https://playentry.org/entry62045\nGitHub: https://github.com/entry62045\n특급 블럭: https://github.com/entry62045/expressblock', 'font-family: 맑은 고딕; color: #ffffff; background-color: #66AA33; border-radius: 10px; font-size: 26px; padding : 20px 30px', 'color: #000000; background-color: #FFFFFF; font-size: 18px;', 'color: #000000; background-color: #FFFFFF; font-size: 16px;');
