@@ -852,6 +852,56 @@ const blocks = [
 		},
 	},
 	{
+		name: 'Post',
+		template: '%1에 %2 POST 요청 보내기%3',
+		skeleton: 'basic',
+		color: {
+			default: '#383838',
+			darken: '#383838'
+		},
+		params: [
+			{
+				type: 'Block',
+				accept: 'string'
+			},
+			{
+				type: 'Block',
+				accept: 'string'
+			},
+			{
+				type: 'Indicator',
+				img: 'block_icon/start_icon_play.svg',
+				size: 11,
+			}
+		],
+		def: [
+			{
+				type: 'text',
+				params: ['https://playentry.org/api/discuss']
+			},
+			{
+				type: 'text',
+				params: ['{ "images": [], "category": "free", "title": "제목", "content": "내용", "groupNotice": false }']
+			},
+			null
+		],
+		map: {
+			APIURL: 0,
+			DATA: 1
+		},
+		class: 'text',
+		func: async (sprite, script) => {
+			let res = await fetch(script.getValue('APIURL', script), {
+				method: 'POST',
+				body: script.getValue('DATA', script),
+				headers: {
+					  'Content-Type': 'application/json'
+				}
+			})
+			return script.callReturn();
+		},
+	},
+	{
 		name: 'SearchBlocks',
 		template: '%1',
 		skeleton: 'basic_text',
@@ -1594,4 +1644,13 @@ const blocks = [
 ]
 
 LibraryCreator.start(blocks, 'API', '특급');
-console.log('%cExpress Block 4.0.1%c\n\n62045의 특급 블럭을 사용해주셔서 감사합니다.\n이 블럭은 tica_님의 EntBlocks 2.2를 사용하여 제작하였습니다.\nhttps://github.com/thoratica/entblocks\n\n%c엔트리: https://playentry.org/entry62045\nGitHub: https://github.com/entry62045\n특급 블럭: https://github.com/entry62045/expressblock', 'font-family: 맑은 고딕; color: #ffffff; background-color: #66AA33; border-radius: 10px; font-size: 26px; padding : 20px 30px', 'color: #000000; background-color: #FFFFFF; font-size: 18px;', 'color: #000000; background-color: #FFFFFF; font-size: 16px;');
+if(Entry.getMainWS() && Entry.projectId) {
+	const exportedProject = Entry.exportProject()
+	const projectData = await (await fetch(`https://playentry.org/api/project/${Entry.projectId}`)).json()
+	Entry.clearProject()
+	Entry.loadProject(Object.keys(exportedProject).reduce((acc, cur) => {
+		acc[cur] = projectData[cur]
+		return acc
+	}, {}))
+}
+console.log('%cExpress Block 4.1%c\n\n62045의 특급 블럭을 사용해주셔서 감사합니다.\n이 블럭은 tica_님의 EntBlocks 2.2를 사용하여 제작하였습니다.\nhttps://github.com/thoratica/entblocks\n\n%c엔트리: https://playentry.org/entry62045\nGitHub: https://github.com/entry62045\n특급 블럭: https://github.com/entry62045/expressblock', 'font-family: 맑은 고딕; color: #ffffff; background-color: #66AA33; border-radius: 10px; font-size: 26px; padding : 20px 30px', 'color: #000000; background-color: #FFFFFF; font-size: 18px;', 'color: #000000; background-color: #FFFFFF; font-size: 16px;');
