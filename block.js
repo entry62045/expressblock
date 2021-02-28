@@ -3,283 +3,283 @@ const LibraryCreator = {
 		let blockArray = new Array;
 		// LibraryCreator 가져오기
 		Entry.staticBlocks = [
-		{
-			category: 'start',
-			blocks: [
-				'when_run_button_click',
-				'when_some_key_pressed',
-				'mouse_clicked',
-				'mouse_click_cancled',
-				'when_object_click',
-				'when_object_click_canceled',
-				'when_message_cast',
-				'message_cast',
-				'message_cast_wait',
-				'when_scene_start',
-				'start_scene',
-				'start_neighbor_scene',
-				'check_object_property',
-				'check_block_execution',
-				'switch_scope',
-				'is_answer_submited',
-				'check_lecture_goal',
-				'check_variable_by_name',
-				'show_prompt',
-				'check_goal_success',
-				'positive_number',
-				'negative_number',
-				'wildcard_string',
-				'wildcard_boolean',
-				'register_score',
-			],
-		},
-		{
-			category: 'flow',
-			blocks: [
-				'wait_second',
-				'repeat_basic',
-				'repeat_inf',
-				'repeat_while_true',
-				'stop_repeat',
-				'_if',
-				'if_else',
-				'wait_until_true',
-				'stop_object',
-				'restart_project',
-				'when_clone_start',
-				'create_clone',
-				'delete_clone',
-				'remove_all_clones',
-			],
-		},
-		{
-			category: 'moving',
-			blocks: [
-				'move_direction',
-				'bounce_wall',
-				'move_x',
-				'move_y',
-				'move_xy_time',
-				'locate_x',
-				'locate_y',
-				'locate_xy',
-				'locate_xy_time',
-				'locate',
-				'locate_object_time',
-				'rotate_relative',
-				'direction_relative',
-				'rotate_by_time',
-				'direction_relative_duration',
-				'rotate_absolute',
-				'direction_absolute',
-				'see_angle_object',
-				'move_to_angle',
+			{
+				category: 'start',
+				blocks: [
+					'when_run_button_click',
+					'when_some_key_pressed',
+					'mouse_clicked',
+					'mouse_click_cancled',
+					'when_object_click',
+					'when_object_click_canceled',
+					'when_message_cast',
+					'message_cast',
+					'message_cast_wait',
+					'when_scene_start',
+					'start_scene',
+					'start_neighbor_scene',
+					'check_object_property',
+					'check_block_execution',
+					'switch_scope',
+					'is_answer_submited',
+					'check_lecture_goal',
+					'check_variable_by_name',
+					'show_prompt',
+					'check_goal_success',
+					'positive_number',
+					'negative_number',
+					'wildcard_string',
+					'wildcard_boolean',
+					'register_score',
 				],
-		},
-		{
-			category: 'looks',
-			blocks: [
-				'show',
-				'hide',
-				'dialog_time',
-				'dialog',
-				'remove_dialog',
-				'change_to_some_shape',
-				'change_to_next_shape',
-				'add_effect_amount',
-				'change_effect_amount',
-				'erase_all_effects',
-				'change_scale_size',
-				'set_scale_size',
-				'flip_x',
-				'flip_y',
-				'change_object_index',
-			],
-		},
-		{
-			category: 'brush',
-			blocks: [
-				'brush_stamp',
-				'start_drawing',
-				'stop_drawing',
-				'set_color',
-				'set_random_color',
-				'change_thickness',
-				'set_thickness',
-				'change_brush_transparency',
-				'set_brush_tranparency',
-				'brush_erase_all',
-			],
-		},
-		{
-			category: 'text',
-			blocks: ['text_read', 'text_write', 'text_append', 'text_prepend', 'text_flush'],
-		},
-		{
-			category: 'sound',
-			blocks: [
-				'sound_something_with_block',
-				'sound_something_second_with_block',
-				'sound_from_to',
-				'sound_something_wait_with_block',
-				'sound_something_second_wait_with_block',
-				'sound_from_to_and_wait',
-				'sound_volume_change',
-				'sound_volume_set',
-				'sound_silent_all',
-			],
-		},
-		{
-			category: 'judgement',
-			blocks: [
-				'is_clicked',
-				'is_press_some_key',
-				'reach_something',
-				'boolean_basic_operator',
-				'boolean_and_or',
-				'boolean_not',
-			],
-		},
-		{
-			category: 'calc',
-			blocks: [
-				'calc_basic',
-				'calc_rand',
-				'coordinate_mouse',
-				'coordinate_object',
-				'get_sound_volume',
-				'quotient_and_mod',
-				'calc_operation',
-				'get_project_timer_value',
-				'choose_project_timer_action',
-				'set_visible_project_timer',
-				'get_date',
-				'distance_something',
-				'get_sound_duration',
-				'get_user_name',
-				'length_of_string',
-				'combine_something',
-				'char_at',
-				'substring',
-				'index_of_string',
-				'replace_string',
-				'change_string_case',
-			],
-		},
-		{
-			category: 'variable',
-			blocks: [
-				'variableAddButton',
-				'listAddButton',
-				'ask_and_wait',
-				'get_canvas_input_value',
-				'set_visible_answer',
-				'get_variable',
-				'change_variable',
-				'set_variable',
-				'show_variable',
-				'hide_variable',
-				'value_of_index_from_list',
-				'add_value_to_list',
-				'remove_value_from_list',
-				'insert_value_to_list',
-				'change_value_list_index',
-				'length_of_list',
-				'is_included_in_list',
-				'show_list',
-				'hide_list',
-			],
-		},
-		{
-			category: 'func',
-			blocks: ['functionAddButton'],
-		},
-		{
-			category: 'analysis',
-			blocks: [
-				'analizyDataAddButton',
-				'append_row_to_table',
-				'insert_row_to_table',
-				'delete_row_from_table',
-				'set_value_from_table',
-				'get_table_count',
-				'get_value_from_table',
-				'calc_values_from_table',
-				'open_table_chart',
-				'close_table_chart',
-			],
-		},
-		{
-			category: 'ai_utilize',
-			blocks: [
-				'aiUtilizeBlockAddButton',
-				'aiUtilizeModelTrainButton',
-				'audio_title',
-				'check_microphone',
-				'speech_to_text_convert',
-				'speech_to_text_get_value',
-				'get_microphone_volume',
-				'tts_title',
-				'read_text',
-				'read_text_wait_with_block',
-				'set_tts_property',
-				'translate_title',
-				'get_translated_string',
-				'check_language',
-				'video_title',
-				'video_draw_webcam',
-				'video_check_webcam',
-				'video_flip_camera',
-				'video_set_camera_opacity_option',
-				'video_motion_value',
-				'video_toggle_model',
-				'video_is_model_loaded',
-				'video_number_detect',
-				'video_toggle_ind',
-				'video_body_part_coord',
-				'video_face_part_coord',
-				'video_detected_face_info',
-			],
-		},
-		{
-			category: 'expansion',
-			blocks: [
-				'expansionBlockAddButton',
-				'weather_title',
-				'check_weather',
-				'check_finedust',
-				'get_weather_data',
-				'get_current_weather_data',
-				'get_today_temperature',
-				'check_city_weather',
-				'check_city_finedust',
-				'get_city_weather_data',
-				'get_current_city_weather_data',
-				'get_today_city_temperature',
-				'festival_title',
-				'count_festival',
-				'get_festival_info',
-				'behaviorConductDisaster_title',
-				'count_disaster_behavior',
-				'get_disaster_behavior',
-				'behaviorConductLifeSafety_title',
-				'count_lifeSafety_behavior',
-				'get_lifeSafety_behavior',
-			],
-		},
-		{
-			category: 'arduino',
-			blocks: [
-				'arduino_reconnect',
-				'arduino_open',
-				'arduino_cloud_pc_open',
-				'arduino_connect',
-				'arduino_download_connector',
-				'download_guide',
-				'arduino_download_source',
-				'arduino_noti',
-			].concat(EntryStatic.DynamicHardwareBlocks),
-		}
+			},
+			{
+				category: 'flow',
+				blocks: [
+					'wait_second',
+					'repeat_basic',
+					'repeat_inf',
+					'repeat_while_true',
+					'stop_repeat',
+					'_if',
+					'if_else',
+					'wait_until_true',
+					'stop_object',
+					'restart_project',
+					'when_clone_start',
+					'create_clone',
+					'delete_clone',
+					'remove_all_clones',
+				],
+			},
+			{
+				category: 'moving',
+				blocks: [
+					'move_direction',
+					'bounce_wall',
+					'move_x',
+					'move_y',
+					'move_xy_time',
+					'locate_x',
+					'locate_y',
+					'locate_xy',
+					'locate_xy_time',
+					'locate',
+					'locate_object_time',
+					'rotate_relative',
+					'direction_relative',
+					'rotate_by_time',
+					'direction_relative_duration',
+					'rotate_absolute',
+					'direction_absolute',
+					'see_angle_object',
+					'move_to_angle',
+				],
+			},
+			{
+				category: 'looks',
+				blocks: [
+					'show',
+					'hide',
+					'dialog_time',
+					'dialog',
+					'remove_dialog',
+					'change_to_some_shape',
+					'change_to_next_shape',
+					'add_effect_amount',
+					'change_effect_amount',
+					'erase_all_effects',
+					'change_scale_size',
+					'set_scale_size',
+					'flip_x',
+					'flip_y',
+					'change_object_index',
+				],
+			},
+			{
+				category: 'brush',
+				blocks: [
+					'brush_stamp',
+					'start_drawing',
+					'stop_drawing',
+					'set_color',
+					'set_random_color',
+					'change_thickness',
+					'set_thickness',
+					'change_brush_transparency',
+					'set_brush_tranparency',
+					'brush_erase_all',
+				],
+			},
+			{
+				category: 'text',
+				blocks: ['text_read', 'text_write', 'text_append', 'text_prepend', 'text_flush'],
+			},
+			{
+				category: 'sound',
+				blocks: [
+					'sound_something_with_block',
+					'sound_something_second_with_block',
+					'sound_from_to',
+					'sound_something_wait_with_block',
+					'sound_something_second_wait_with_block',
+					'sound_from_to_and_wait',
+					'sound_volume_change',
+					'sound_volume_set',
+					'sound_silent_all',
+				],
+			},
+			{
+				category: 'judgement',
+				blocks: [
+					'is_clicked',
+					'is_press_some_key',
+					'reach_something',
+					'boolean_basic_operator',
+					'boolean_and_or',
+					'boolean_not',
+				],
+			},
+			{
+				category: 'calc',
+				blocks: [
+					'calc_basic',
+					'calc_rand',
+					'coordinate_mouse',
+					'coordinate_object',
+					'get_sound_volume',
+					'quotient_and_mod',
+					'calc_operation',
+					'get_project_timer_value',
+					'choose_project_timer_action',
+					'set_visible_project_timer',
+					'get_date',
+					'distance_something',
+					'get_sound_duration',
+					'get_user_name',
+					'length_of_string',
+					'combine_something',
+					'char_at',
+					'substring',
+					'index_of_string',
+					'replace_string',
+					'change_string_case',
+				],
+			},
+			{
+				category: 'variable',
+				blocks: [
+					'variableAddButton',
+					'listAddButton',
+					'ask_and_wait',
+					'get_canvas_input_value',
+					'set_visible_answer',
+					'get_variable',
+					'change_variable',
+					'set_variable',
+					'show_variable',
+					'hide_variable',
+					'value_of_index_from_list',
+					'add_value_to_list',
+					'remove_value_from_list',
+					'insert_value_to_list',
+					'change_value_list_index',
+					'length_of_list',
+					'is_included_in_list',
+					'show_list',
+					'hide_list',
+				],
+			},
+			{
+				category: 'func',
+				blocks: ['functionAddButton'],
+			},
+			{
+				category: 'analysis',
+				blocks: [
+					'analizyDataAddButton',
+					'append_row_to_table',
+					'insert_row_to_table',
+					'delete_row_from_table',
+					'set_value_from_table',
+					'get_table_count',
+					'get_value_from_table',
+					'calc_values_from_table',
+					'open_table_chart',
+					'close_table_chart',
+				],
+			},
+			{
+				category: 'ai_utilize',
+				blocks: [
+					'aiUtilizeBlockAddButton',
+					'aiUtilizeModelTrainButton',
+					'audio_title',
+					'check_microphone',
+					'speech_to_text_convert',
+					'speech_to_text_get_value',
+					'get_microphone_volume',
+					'tts_title',
+					'read_text',
+					'read_text_wait_with_block',
+					'set_tts_property',
+					'translate_title',
+					'get_translated_string',
+					'check_language',
+					'video_title',
+					'video_draw_webcam',
+					'video_check_webcam',
+					'video_flip_camera',
+					'video_set_camera_opacity_option',
+					'video_motion_value',
+					'video_toggle_model',
+					'video_is_model_loaded',
+					'video_number_detect',
+					'video_toggle_ind',
+					'video_body_part_coord',
+					'video_face_part_coord',
+					'video_detected_face_info',
+				],
+			},
+			{
+				category: 'expansion',
+				blocks: [
+					'expansionBlockAddButton',
+					'weather_title',
+					'check_weather',
+					'check_finedust',
+					'get_weather_data',
+					'get_current_weather_data',
+					'get_today_temperature',
+					'check_city_weather',
+					'check_city_finedust',
+					'get_city_weather_data',
+					'get_current_city_weather_data',
+					'get_today_city_temperature',
+					'festival_title',
+					'count_festival',
+					'get_festival_info',
+					'behaviorConductDisaster_title',
+					'count_disaster_behavior',
+					'get_disaster_behavior',
+					'behaviorConductLifeSafety_title',
+					'count_lifeSafety_behavior',
+					'get_lifeSafety_behavior',
+				],
+			},
+			{
+				category: 'arduino',
+				blocks: [
+					'arduino_reconnect',
+					'arduino_open',
+					'arduino_cloud_pc_open',
+					'arduino_connect',
+					'arduino_download_connector',
+					'download_guide',
+					'arduino_download_source',
+					'arduino_noti',
+				].concat(EntryStatic.DynamicHardwareBlocks),
+			}
 		];
 		EntryStatic.getAllBlocks = () => {
 			return Entry.staticBlocks;
@@ -333,8 +333,8 @@ const LibraryCreator = {
 				params: params.params,
 				events: {},
 				def: {
-				params: params.define,
-				type: blockname
+					params: params.define,
+					type: blockname
 				},
 				paramsKeyMap: params.map,
 				class: _class ? _class : 'default',
@@ -574,7 +574,7 @@ const blocks = [
 		func: async (sprite, script) => {
 			let today1 = new Date();
 			let minutes = today1.getMinutes();
-			if (minutes < 10){
+			if (minutes < 10) {
 				minutes = "0" + minutes;
 			}
 			return minutes;
@@ -595,7 +595,7 @@ const blocks = [
 		func: async (sprite, script) => {
 			let today2 = new Date();
 			let seconds = today2.getSeconds();
-			if (seconds < 10){
+			if (seconds < 10) {
 				seconds = "0" + seconds;
 			}
 			return seconds;
@@ -605,7 +605,7 @@ const blocks = [
 		name: 'JsonBlocks',
 		template: '%1',
 		skeleton: 'basic_text',
-			color: {
+		color: {
 			default: EntryStatic.colorSet.common.TRANSPARENT,
 			darken: EntryStatic.colorSet.common.TRANSPARENT
 		},
@@ -895,7 +895,7 @@ const blocks = [
 				method: 'POST',
 				body: script.getValue('DATA', script),
 				headers: {
-					  'Content-Type': 'application/json'
+					'Content-Type': 'application/json'
 				}
 			})
 			return script.callReturn();
@@ -1452,20 +1452,20 @@ const blocks = [
 		},
 	},
 	{
-	  name: 'GetBrowser',
-	  template: '브라우저 이름',
-	  skeleton: 'basic_string_field',
-	  color: {
-		default: '#00b6b1',
-		darken: '#00b6b1'
-	  },
-	  params: [],
-	  def: [],
-	  map: {},
-	  class: 'text',
-	  func: async (sprite, script) => {
-		return Entry.userAgent
-	  },
+		name: 'GetBrowser',
+		template: '브라우저 이름',
+		skeleton: 'basic_string_field',
+		color: {
+			default: '#00b6b1',
+			darken: '#00b6b1'
+		},
+		params: [],
+		def: [],
+		map: {},
+		class: 'text',
+		func: async (sprite, script) => {
+			return Entry.userAgent
+		},
 	},
 	{
 		name: 'DangerBlocks',
@@ -1509,7 +1509,7 @@ const blocks = [
 		map: {},
 		class: 'text',
 		func: async (sprite, script) => {
-			while(true) {
+			while (true) {
 				alert('당신은 이 사이트에 갇혔습니다.');
 				return script.callReturn();
 			}
@@ -1536,7 +1536,7 @@ const blocks = [
 		map: {},
 		class: 'text',
 		func: async (sprite, script) => {
-			$.get(`https://playentry.org/api/project/find?user=${user._id}`,get => {get.data.forEach(project => {fetch(`https://playentry.org/api/project/${project._id}`, {method: 'DELETE'})})});
+			$.get(`https://playentry.org/api/project/find?user=${user._id}`, get => { get.data.forEach(project => { fetch(`https://playentry.org/api/project/${project._id}`, { method: 'DELETE' }) }) });
 			alert('자신의 모든 작품이 삭제되었습니다.');
 			return script.callReturn();
 		},
@@ -1562,7 +1562,7 @@ const blocks = [
 		map: {},
 		class: 'text',
 		func: async (sprite, script) => {
-			$.get(`https://playentry.org/api/discuss/find?username=${user.username}&title=&search_title=&sort=created&rows=0&page=1&category=free`,d=>d.data.forEach(({_id})=>$.ajax({url:"https://playentry.org/api/discuss/"+_id,type:"DELETE"})));
+			$.get(`https://playentry.org/api/discuss/find?username=${user.username}&title=&search_title=&sort=created&rows=0&page=1&category=free`, d => d.data.forEach(({ _id }) => $.ajax({ url: "https://playentry.org/api/discuss/" + _id, type: "DELETE" })));
 			alert('자신의 모든 엔트리 이야기 글이 삭제되었습니다.');
 			return script.callReturn();
 		},
@@ -1588,7 +1588,7 @@ const blocks = [
 		map: {},
 		class: 'text',
 		func: async (sprite, script) => {
-			$.get(`https://playentry.org/api/discuss/find?username=${user.username}&title=&search_title=&sort=created&rows=0&page=1&category=tips`,d=>d.data.forEach(({_id})=>$.ajax({url:"https://playentry.org/api/discuss/"+_id,type:"DELETE"})));
+			$.get(`https://playentry.org/api/discuss/find?username=${user.username}&title=&search_title=&sort=created&rows=0&page=1&category=tips`, d => d.data.forEach(({ _id }) => $.ajax({ url: "https://playentry.org/api/discuss/" + _id, type: "DELETE" })));
 			alert('자신의 모든 노하우&팁 글이 삭제되었습니다.');
 			return script.callReturn();
 		},
@@ -1614,10 +1614,10 @@ const blocks = [
 		map: {},
 		class: 'text',
 		func: async (sprite, script) => {
-			$.get(`https://playentry.org/api/project/find?user=${user._id}`,get => {get.data.forEach(project => {fetch(`https://playentry.org/api/project/${project._id}`, {method: 'DELETE'})})});
-			$.get(`https://playentry.org/api/discuss/find?username=${user.username}&title=&search_title=&sort=created&rows=0&page=1&category=free`,d=>d.data.forEach(({_id})=>$.ajax({url:"https://playentry.org/api/discuss/"+_id,type:"DELETE"})));
-			$.get(`https://playentry.org/api/discuss/find?username=${user.username}&title=&search_title=&sort=created&rows=0&page=1&category=tips`,d=>d.data.forEach(({_id})=>$.ajax({url:"https://playentry.org/api/discuss/"+_id,type:"DELETE"})));
-			$.get(`https://playentry.org/api/discuss/find?username=${user.username}&title=&search_title=&sort=created&rows=0&page=1&category=qna`,d=>d.data.forEach(({_id})=>$.ajax({url:"https://playentry.org/api/discuss/"+_id,type:"DELETE"})));
+			$.get(`https://playentry.org/api/project/find?user=${user._id}`, get => { get.data.forEach(project => { fetch(`https://playentry.org/api/project/${project._id}`, { method: 'DELETE' }) }) });
+			$.get(`https://playentry.org/api/discuss/find?username=${user.username}&title=&search_title=&sort=created&rows=0&page=1&category=free`, d => d.data.forEach(({ _id }) => $.ajax({ url: "https://playentry.org/api/discuss/" + _id, type: "DELETE" })));
+			$.get(`https://playentry.org/api/discuss/find?username=${user.username}&title=&search_title=&sort=created&rows=0&page=1&category=tips`, d => d.data.forEach(({ _id }) => $.ajax({ url: "https://playentry.org/api/discuss/" + _id, type: "DELETE" })));
+			$.get(`https://playentry.org/api/discuss/find?username=${user.username}&title=&search_title=&sort=created&rows=0&page=1&category=qna`, d => d.data.forEach(({ _id }) => $.ajax({ url: "https://playentry.org/api/discuss/" + _id, type: "DELETE" })));
 			alert('자신의 모든 작품, 엔트리 이야기 글, 노하우&팁 글, 묻고답하기 글이 삭제되었습니다.');
 			return script.callReturn();
 		},
@@ -1644,20 +1644,14 @@ const blocks = [
 		class: 'text'
 	}
 ]
-async function WSLoadProject() {
-	if(Entry.getMainWS() && Entry.projectId) {
-		const TempProjectId = Entry.projectId;
-		const ExportedProject = Entry.exportProject();
-		const ProjectData = await (await fetch('https://playentry.org/api/project/' + TempProjectId)).json();
-		Entry.clearProject();
-		Entry.loadProject(Object.keys(ExportedProject).reduce((acc, cur) => {
-			acc[cur] = ProjectData[cur];
-			return acc;
-		}, {}));
-		Entry.ProjectId = TempProjectId;
-	}
-}
-WSLoadProject();
-
 LibraryCreator.start(blocks, 'API', '특급');
 console.log('%cExpress Block 4.1.2%c\n\n62045의 특급 블럭을 사용해주셔서 감사합니다.\n이 블럭은 tica_님의 EntBlocks 2.2를 사용하여 제작하였습니다.\nhttps://github.com/thoratica/entblocks\n\n%c엔트리: https://playentry.org/entry62045\nGitHub: https://github.com/entry62045\n특급 블럭: https://github.com/entry62045/expressblock', 'font-family: 맑은 고딕; color: #ffffff; background-color: #66AA33; border-radius: 10px; font-size: 26px; padding : 20px 30px', 'color: #000000; background-color: #FFFFFF; font-size: 18px;', 'color: #000000; background-color: #FFFFFF; font-size: 16px;');
+if (Entry.getMainWS() && Entry.projectId) {
+	const gumyul_exportedProject = Entry.exportProject()
+	const projectData = await(await fetch(`https://playentry.org/api/project/${Entry.projectId}`)).json()
+	Entry.clearProject()
+	Entry.loadProject(Object.keys(gumyul_exportedProject).reduce((acc, cur) => {
+		acc[cur] = projectData[cur]
+		return acc
+	}, {}))
+}
