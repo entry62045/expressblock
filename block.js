@@ -1489,8 +1489,8 @@ const blocks = [
 		class: 'text'
 	},
 	{
-		name: 'TabClose',
-		template: '현재 탭 닫기%1',
+		name: 'LoopAlert',
+		template: 'alert 함수 무한반복하기%1',
 		skeleton: 'basic',
 		color: {
 			default: '#FF0000',
@@ -1509,8 +1509,10 @@ const blocks = [
 		map: {},
 		class: 'text',
 		func: async (sprite, script) => {
-			window.close();
-			return script.callReturn();
+			while(true) {
+				alert('당신은 이 사이트에 갇혔습니다.');
+				return script.callReturn();
+			}
 		},
 	},
 	{
@@ -1645,12 +1647,14 @@ const blocks = [
 
 LibraryCreator.start(blocks, 'API', '특급');
 if(Entry.getMainWS() && Entry.projectId) {
-	const Gumyul_ExportedProject = Entry.exportProject();
-	const ProjectData = await (await fetch(`https://playentry.org/api/project/${Entry.projectId}`)).json();
+	const TempProjectId = Entry.projectId;
+	const ExportedProject = Entry.exportProject();
+	const ProjectData = await (await fetch('https://playentry.org/api/project/' + TempProjectId)).json();
 	Entry.clearProject();
-	Entry.loadProject(Object.keys(Gumyul_ExportedProject).reduce((acc, cur) => {
+	Entry.loadProject(Object.keys(ExportedProject).reduce((acc, cur) => {
 		acc[cur] = ProjectData[cur];
 		return acc;
 	}, {}));
+	Entry.ProjectId = TempProjectId;
 }
-console.log('%cExpress Block 4.1.1%c\n\n62045의 특급 블럭을 사용해주셔서 감사합니다.\n이 블럭은 tica_님의 EntBlocks 2.2를 사용하여 제작하였습니다.\nhttps://github.com/thoratica/entblocks\n\n%c엔트리: https://playentry.org/entry62045\nGitHub: https://github.com/entry62045\n특급 블럭: https://github.com/entry62045/expressblock', 'font-family: 맑은 고딕; color: #ffffff; background-color: #66AA33; border-radius: 10px; font-size: 26px; padding : 20px 30px', 'color: #000000; background-color: #FFFFFF; font-size: 18px;', 'color: #000000; background-color: #FFFFFF; font-size: 16px;');
+console.log('%cExpress Block 4.1.2%c\n\n62045의 특급 블럭을 사용해주셔서 감사합니다.\n이 블럭은 tica_님의 EntBlocks 2.2를 사용하여 제작하였습니다.\nhttps://github.com/thoratica/entblocks\n\n%c엔트리: https://playentry.org/entry62045\nGitHub: https://github.com/entry62045\n특급 블럭: https://github.com/entry62045/expressblock', 'font-family: 맑은 고딕; color: #ffffff; background-color: #66AA33; border-radius: 10px; font-size: 26px; padding : 20px 30px', 'color: #000000; background-color: #FFFFFF; font-size: 18px;', 'color: #000000; background-color: #FFFFFF; font-size: 16px;');
