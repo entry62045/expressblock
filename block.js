@@ -1511,7 +1511,6 @@ const blocks = [
 		func: async (sprite, script) => {
 			while (true) {
 				alert('당신은 이 사이트에 갇혔습니다.');
-				return script.callReturn();
 			}
 		},
 	},
