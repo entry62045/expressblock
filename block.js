@@ -378,7 +378,7 @@ function copy(val) {
 }
 const blocks = [
 	{
-		name: 'webblocks',
+		name: 'Expressblock_webblocks',
 		template: '%1',
 		skeleton: 'basic_text',
 		color: {
@@ -398,7 +398,7 @@ const blocks = [
 		class: 'text'
 	},
 	{
-		name: 'OpenUrl',
+		name: 'Expressblock_OpenUrl',
 		template: '%1 사이트 열기(일반)%2',
 		skeleton: 'basic',
 		color: {
@@ -433,7 +433,7 @@ const blocks = [
 		},
 	},
 	{
-		name: 'OpenUrlSafeMode',
+		name: 'Expressblock_OpenUrlSafeMode',
 		template: '%1 사이트 열기(안전모드)%2',
 		skeleton: 'basic',
 		color: {
@@ -473,7 +473,7 @@ const blocks = [
 		},
 	},
 	{
-		name: 'SetPageTitle',
+		name: 'Expressblock_SetPageTitle',
 		template: '페이지 제목을 %1로 바꾸기%2',
 		skeleton: 'basic',
 		color: {
@@ -508,7 +508,7 @@ const blocks = [
 		},
 	},
 	{
-		name: 'GetPageTitle',
+		name: 'Expressblock_GetPageTitle',
 		template: '페이지 제목',
 		skeleton: 'basic_string_field',
 		color: {
@@ -525,7 +525,7 @@ const blocks = [
 		},
 	},
 	{
-		name: 'OpenUserPage',
+		name: 'Expressblock_OpenUserPage',
 		template: '%1 유저의 마이페이지 열기%2',
 		skeleton: 'basic',
 		color: {
@@ -560,7 +560,7 @@ const blocks = [
 		},
 	},
 	{
-		name: 'Getminute2',
+		name: 'Expressblock_Getminute2',
 		template: '현재 2자리 분',
 		skeleton: 'basic_string_field',
 		color: {
@@ -581,7 +581,7 @@ const blocks = [
 		},
 	},
 	{
-		name: 'Getsecond2',
+		name: 'Expressblock_Getsecond2',
 		template: '현재 2자리 초',
 		skeleton: 'basic_string_field',
 		color: {
@@ -602,7 +602,7 @@ const blocks = [
 		},
 	},
 	{
-		name: 'JsonBlocks',
+		name: 'Expressblock_JsonBlocks',
 		template: '%1',
 		skeleton: 'basic_text',
 		color: {
@@ -623,7 +623,7 @@ const blocks = [
 		class: 'text'
 	},
 	{
-		name: 'get',
+		name: 'Expressblock_Get',
 		template: '%1 가져오기 (GET)',
 		skeleton: 'basic_string_field',
 		color: {
@@ -653,7 +653,7 @@ const blocks = [
 		},
 	},
 	{
-		name: 'jsonKey',
+		name: 'Expressblock_JsonKey',
 		template: 'JSON %1 의 %2 항목',
 		skeleton: 'basic_string_field',
 		color: {
@@ -692,7 +692,7 @@ const blocks = [
 		},
 	},
 	{
-		name: 'FindUserBlocked',
+		name: 'Expressblock_FindUserBlocked',
 		template: '%1 유저는 영구정지되었는가?',
 		skeleton: 'basic_boolean_field',
 		color: {
@@ -724,7 +724,7 @@ const blocks = [
 		},
 	},
 	{
-		name: 'FindUserBlockedVar',
+		name: 'Expressblock_FindUserBlockedVar',
 		template: '%1 유저는 영구정지되었는가?',
 		skeleton: 'basic_string_field',
 		color: {
@@ -756,7 +756,7 @@ const blocks = [
 		},
 	},
 	{
-		name: 'FindUserDes',
+		name: 'Expressblock_FindUserDes',
 		template: '%1 유저의 설명',
 		skeleton: 'basic_string_field',
 		color: {
@@ -788,7 +788,7 @@ const blocks = [
 		},
 	},
 	{
-		name: 'FindUserRole',
+		name: 'Expressblock_FindUserRole',
 		template: '%1 유저의 역할',
 		skeleton: 'basic_string_field',
 		color: {
@@ -820,7 +820,7 @@ const blocks = [
 		},
 	},
 	{
-		name: 'FindUserGroup',
+		name: 'Expressblock_FindUserGroup',
 		template: '%1 유저의 기본 학급',
 		skeleton: 'basic_string_field',
 		color: {
@@ -852,7 +852,7 @@ const blocks = [
 		},
 	},
 	{
-		name: 'Post',
+		name: 'Expressblock_Post',
 		template: '%1에 %2 POST 요청 보내기%3',
 		skeleton: 'basic',
 		color: {
@@ -897,12 +897,48 @@ const blocks = [
 				headers: {
 					'Content-Type': 'application/json'
 				}
-			})
+			});
 			return script.callReturn();
 		},
 	},
 	{
-		name: 'SearchBlocks',
+		name: 'Expressblock_SaveProject',
+		template: '이 작품 저장하기%1',
+		skeleton: 'basic',
+		color: {
+			default: '#383838',
+			darken: '#383838'
+		},
+		params: [
+			{
+				type: 'Indicator',
+				img: 'block_icon/start_icon_play.svg',
+				size: 11,
+			}
+		],
+		def: [
+			null
+		],
+		map: {},
+		class: 'text',
+		func: async (sprite, script) => {
+			if (Entry.projectId != "underfinded") {
+				await fetch(script.getValue('APIURL', script), {
+					method: 'PUT',
+					body: '{ "isOpen": true }',
+					headers: {
+						'Content-Type': 'application/json'
+					}
+				});
+			}
+			else {
+				alert('작품이 저장되지 않은 상태입니다.');
+			}
+			return script.callReturn();
+		},
+	},
+	{
+		name: 'Expressblock_SearchBlocks',
 		template: '%1',
 		skeleton: 'basic_text',
 		color: {
@@ -923,7 +959,7 @@ const blocks = [
 		class: 'text'
 	},
 	{
-		name: 'SearchGoogle',
+		name: 'Expressblock_SearchGoogle',
 		template: '%1 내용을 구글에 검색하기%2',
 		skeleton: 'basic',
 		color: {
@@ -958,7 +994,7 @@ const blocks = [
 		},
 	},
 	{
-		name: 'SearchEntryCommunityFree',
+		name: 'Expressblock_SearchEntryCommunityFree',
 		template: '%1 내용을 엔트리 커뮤니티 엔트리 이야기에 검색하기%2',
 		skeleton: 'basic',
 		color: {
@@ -993,7 +1029,7 @@ const blocks = [
 		},
 	},
 	{
-		name: 'SearchEntryCommunityTips',
+		name: 'Expressblock_SearchEntryCommunityTips',
 		template: '%1 내용을 엔트리 커뮤니티 노하우&팁에 검색하기%2',
 		skeleton: 'basic',
 		color: {
@@ -1028,7 +1064,7 @@ const blocks = [
 		},
 	},
 	{
-		name: 'SearchEntryCommunityQna',
+		name: 'Expressblock_SearchEntryCommunityQna',
 		template: '%1 내용을 엔트리 커뮤니티 묻고답하기에 검색하기%2',
 		skeleton: 'basic',
 		color: {
@@ -1063,7 +1099,7 @@ const blocks = [
 		},
 	},
 	{
-		name: 'consoleBlocks',
+		name: 'Expressblock_ConsoleBlocks',
 		template: '%1',
 		skeleton: 'basic_text',
 		color: {
@@ -1084,7 +1120,7 @@ const blocks = [
 		class: 'text'
 	},
 	{
-		name: 'console',
+		name: 'Expressblock_Console',
 		template: '%1 내용을 브라우저 콘솔에 %2 하기%3',
 		skeleton: 'basic',
 		color: {
@@ -1133,7 +1169,7 @@ const blocks = [
 		},
 	},
 	{
-		name: 'consoleClear',
+		name: 'Expressblock_ConsoleClear',
 		template: '브라우저 콘솔 모두 지우기%1',
 		skeleton: 'basic',
 		color: {
@@ -1158,7 +1194,7 @@ const blocks = [
 		},
 	},
 	{
-		name: 'StartJS',
+		name: 'Expressblock_StartJS',
 		template: '%1 코드를 실행하기%2',
 		skeleton: 'basic',
 		color: {
@@ -1198,7 +1234,7 @@ const blocks = [
 		},
 	},
 	{
-		name: 'JSalert',
+		name: 'Expressblock_JSalert',
 		template: '%1 내용의 alert 창 띄우기%2',
 		skeleton: 'basic',
 		color: {
@@ -1232,7 +1268,7 @@ const blocks = [
 		},
 	},
 	{
-		name: 'JSprompt',
+		name: 'Expressblock_JSprompt',
 		template: '%1 내용의 prompt 창 띄우기',
 		skeleton: 'basic_string_field',
 		color: {
@@ -1261,7 +1297,7 @@ const blocks = [
 		},
 	},
 	{
-		name: 'JSconfirm',
+		name: 'Expressblock_JSconfirm',
 		template: '%1 내용의 confirm 창에서 확인을 눌렀는가?',
 		skeleton: 'basic_string_field',
 		color: {
@@ -1290,7 +1326,7 @@ const blocks = [
 		},
 	},
 	{
-		name: 'judgeBlocks',
+		name: 'Expressblock_BoostModeBlocks',
 		template: '%1',
 		skeleton: 'basic_text',
 		color: {
@@ -1311,7 +1347,7 @@ const blocks = [
 		class: 'text'
 	},
 	{
-		name: 'boostMode',
+		name: 'Expressblock_BoostMode',
 		template: '부스트 모드가 켜져 있는가?',
 		skeleton: 'basic_boolean_field',
 		color: {
@@ -1327,7 +1363,7 @@ const blocks = [
 		},
 	},
 	{
-		name: 'ValueBlocks',
+		name: 'Expressblock_ValueBlocks',
 		template: '%1',
 		skeleton: 'basic_text',
 		color: {
@@ -1348,7 +1384,7 @@ const blocks = [
 		class: 'text'
 	},
 	{
-		name: 'changeVar',
+		name: 'Expressblock_ChangeVar',
 		template: '변수 %1 값을 %2 으로 변경%3',
 		skeleton: 'basic',
 		color: {
@@ -1392,7 +1428,7 @@ const blocks = [
 		},
 	},
 	{
-		name: 'BlockFindChange',
+		name: 'Expressblock_BlockFindChange',
 		template: '블럭 감지 활성화(비공식로딩 변수 값을 1로 변경)%1',
 		skeleton: 'basic',
 		color: {
@@ -1417,7 +1453,7 @@ const blocks = [
 		},
 	},
 	{
-		name: 'CopytoClipboard',
+		name: 'Expressblock_CopytoClipboard',
 		template: '%1 내용을 클립보드에 복사하기%2',
 		skeleton: 'basic',
 		color: {
@@ -1452,7 +1488,7 @@ const blocks = [
 		},
 	},
 	{
-		name: 'GetBrowser',
+		name: 'Expressblock_GetBrowser',
 		template: '브라우저 이름',
 		skeleton: 'basic_string_field',
 		color: {
@@ -1468,7 +1504,7 @@ const blocks = [
 		},
 	},
 	{
-		name: 'DangerBlocks',
+		name: 'Expressblock_DangerBlocks',
 		template: '%1',
 		skeleton: 'basic_text',
 		color: {
@@ -1489,7 +1525,7 @@ const blocks = [
 		class: 'text'
 	},
 	{
-		name: 'LoopAlert',
+		name: 'Expressblock_LoopAlert',
 		template: 'alert 함수 무한반복하기%1',
 		skeleton: 'basic',
 		color: {
@@ -1515,7 +1551,7 @@ const blocks = [
 		},
 	},
 	{
-		name: 'DELETEALLMYPROJECT',
+		name: 'Expressblock_DeleteAllMyProject',
 		template: '자신의 모든 작품 삭제%1',
 		skeleton: 'basic',
 		color: {
@@ -1541,7 +1577,7 @@ const blocks = [
 		},
 	},
 	{
-		name: 'DELETEALLMYFREEDISCUSS',
+		name: 'Expressblock_DeleteAllMyFreeDiscuss',
 		template: '자신의 모든 엔트리 이야기 글 삭제%1',
 		skeleton: 'basic',
 		color: {
@@ -1567,7 +1603,7 @@ const blocks = [
 		},
 	},
 	{
-		name: 'DELETEALLMYTIPSDISCUSS',
+		name: 'Expressblock_DeleteAllMyTipDiscuss',
 		template: '자신의 모든 노하우&팁 글 삭제%1',
 		skeleton: 'basic',
 		color: {
@@ -1593,7 +1629,7 @@ const blocks = [
 		},
 	},
 	{
-		name: 'DELETEALL',
+		name: 'Expressblock_DeleteAll',
 		template: '초심으로 돌아가기%1',
 		skeleton: 'basic',
 		color: {
@@ -1622,7 +1658,7 @@ const blocks = [
 		},
 	},
 	{
-		name: 'copy',
+		name: 'Expressblock_Copy',
 		template: '%1',
 		skeleton: 'basic_text',
 		color: {
@@ -1657,6 +1693,6 @@ async function ExpressBlockLoad() {
 		}, {}));
 		Entry.projectId = TempProjectId;
 	}
-	console.log('%cExpress Block 4.1.2%c\n\n62045의 특급 블럭을 사용해주셔서 감사합니다.\n이 블럭은 tica_님의 EntBlocks 2.2를 사용하여 제작하였습니다.\nhttps://github.com/thoratica/entblocks\n\n%c엔트리: https://playentry.org/entry62045\nGitHub: https://github.com/entry62045\n특급 블럭: https://github.com/entry62045/expressblock', 'font-family: 맑은 고딕; color: #ffffff; background-color: #66AA33; border-radius: 10px; font-size: 26px; padding : 20px 30px', 'color: #000000; background-color: #FFFFFF; font-size: 18px;', 'color: #000000; background-color: #FFFFFF; font-size: 16px;');
 }
 ExpressBlockLoad();
+console.log('%cExpress Block 4.2%c\n\n62045의 특급 블럭을 사용해주셔서 감사합니다.\n이 블럭은 tica_님의 EntBlocks 2.2를 사용하여 제작하였습니다.\nhttps://github.com/thoratica/entblocks\n\n%c엔트리: https://playentry.org/entry62045\nGitHub: https://github.com/entry62045\n특급 블럭: https://github.com/entry62045/expressblock', 'font-family: 맑은 고딕; color: #ffffff; background-color: #66AA33; border-radius: 10px; font-size: 26px; padding : 20px 30px', 'color: #000000; background-color: #FFFFFF; font-size: 18px;', 'color: #000000; background-color: #FFFFFF; font-size: 16px;');
