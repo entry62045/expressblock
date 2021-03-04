@@ -1507,8 +1507,8 @@ const blocks = [
 		template: '장면이 시작되었을 때 이벤트 발생시키기%1',
 		skeleton: 'basic',
 		color: {
-			default: '#1dbfa1',
-			darken: '#1dbfa1'
+			default: '#e4e80e',
+			darken: '#e4e80e'
 		},
 		params: [
 			{
@@ -1531,8 +1531,8 @@ const blocks = [
 		template: '마우스를 클릭했을 때 이벤트 발생시키기%1',
 		skeleton: 'basic',
 		color: {
-			default: '#1dbfa1',
-			darken: '#1dbfa1'
+			default: '#e4e80e',
+			darken: '#e4e80e'
 		},
 		params: [
 			{
