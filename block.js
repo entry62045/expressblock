@@ -1504,7 +1504,7 @@ const blocks = [
 	},
 	{
 		name: 'ExpressBlock_EventWhenRunButtonClick',
-		template: '시학하기 버튼을 클릭했을 때 이벤트 발생시키기%1',
+		template: '시작하기 버튼을 클릭했을 때 이벤트 발생시키기%1',
 		skeleton: 'basic',
 		color: {
 			default: '#e4e80e',
@@ -1529,78 +1529,6 @@ const blocks = [
 	{
 		name: 'ExpressBlock_EventWhenMouseClicked',
 		template: '마우스를 클릭했을 때 이벤트 발생시키기%1',
-		skeleton: 'basic',
-		color: {
-			default: '#e4e80e',
-			darken: '#e4e80e'
-		},
-		params: [
-			{
-				type: 'Indicator',
-				img: 'block_icon/start_icon_play.svg',
-				size: 11,
-			}
-		],
-		def: [
-			null
-		],
-		map: {},
-		class: 'text',
-		func: async (sprite, script) => {
-				Entry.engine.fireEvent('mouse_clicked');
-		},
-	},
-	{
-		name: 'ExpressBlock_EventWhenMouseClickCanceled',
-		template: '마우스를 클릭을 해제했을 때 이벤트 발생시키기%1',
-		skeleton: 'basic',
-		color: {
-			default: '#e4e80e',
-			darken: '#e4e80e'
-		},
-		params: [
-			{
-				type: 'Indicator',
-				img: 'block_icon/start_icon_play.svg',
-				size: 11,
-			}
-		],
-		def: [
-			null
-		],
-		map: {},
-		class: 'text',
-		func: async (sprite, script) => {
-				Entry.engine.fireEvent('mouse_click_canceled');
-		},
-	},
-	{
-		name: 'ExpressBlock_EventWhenObjectClicked',
-		template: '오브젝트를 클릭했을 때 이벤트 발생시키기%1',
-		skeleton: 'basic',
-		color: {
-			default: '#e4e80e',
-			darken: '#e4e80e'
-		},
-		params: [
-			{
-				type: 'Indicator',
-				img: 'block_icon/start_icon_play.svg',
-				size: 11,
-			}
-		],
-		def: [
-			null
-		],
-		map: {},
-		class: 'text',
-		func: async (sprite, script) => {
-				Entry.engine.fireEvent('when_object_clicked');
-		},
-	},
-	{
-		name: 'ExpressBlock_EventWhenObjectClickCanceled',
-		template: '오브젝트를 클릭을 해제했을 때 이벤트 발생시키기%1',
 		skeleton: 'basic',
 		color: {
 			default: '#e4e80e',
@@ -1842,14 +1770,16 @@ const blocks = [
 			null
 		],
 		map: {
-			ENTRYCHANGLISTNAME: 0,
+			ENTRYCHANGELISTNAME: 0,
 			ENTRYCHANGELISTINDEX: 1,
 			ENTRYCHANGELISTARRAY: 2
 		},
 		class: 'text',
 		func: async (sprite, script) => {
-			Entry.variableContainer.getListByName(script.getValue('ENTRYCHANGELISTNAME', script)).list.replaceValue(script.getValue('ENTRYCHANGELISTINDEX', script), script.getValue('ENTRYCHANGELISTARRAY', script));
-			return script.callReturn();
+			const ChangeList = Entry.variableContainer.getListByName(script.getValue("ENTRYCHANGELISTNAME"));
+			const ChangeIndex = Number(script.getValue("ENTRYCHANGELISTINDEX"));
+			const ChangeArray = script.getValue("ENTRYCHANGELISTARRAY");
+			ChangeList.replaceValue(ChangeIndex, ChangeArray);
 		},
 	},
 	{
@@ -1883,14 +1813,15 @@ const blocks = [
 		},
 		class: 'text',
 		func: async (sprite, script) => {
-			while(Entry.variableContainer.getListByName(script.getValue('ENTRYDELETELISTNAME', script)).getArray().length > 0){
-				Entry.variableContainer.getListByName(script.getValue('ENTRYDELETELISTNAME', script)).deleteValue(script.getValue('ENTRYDELETELISTNAME', script).getArray().length);
+			const DeleteList = Entry.variableContainer.getListByName(script.getValue("ENTRYDELETELISTNAME"));
+			while(DeleteList.getArray().length > 0){
+				DeleteList.deleteValue(1);
 			}
 			return script.callReturn();
 		},
 	},
 	{
-		name: 'ExpressBlock_ChangeEntryListArray',
+		name: 'ExpressBlock_FindEntryListArray',
 		template: '엔트리 리스트 %1에 %2가 포함되어 있을 때 그 위치',
 		skeleton: 'basic_string_field',
 		color: {
@@ -1928,6 +1859,7 @@ const blocks = [
 				return null;
 			}
 			const arr = list.getArray();
+			const data = script.getValue('ENTRYFINDLISTSTRING', script);
 			for (let i = 0, len = arr.length; i < len; i++) {
 				if (arr[i].data.toString() == data.toString()) {
 					return i - 1;
