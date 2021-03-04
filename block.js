@@ -1503,8 +1503,8 @@ const blocks = [
 		class: 'text'
 	},
 	{
-		name: 'ExpressBlock_EventWhenSceneStart',
-		template: '장면이 시작되었을 때 이벤트 발생시키기%1',
+		name: 'ExpressBlock_EventWhenRunButtonClick',
+		template: '시학하기 버튼을 클릭했을 때 이벤트 발생시키기%1',
 		skeleton: 'basic',
 		color: {
 			default: '#e4e80e',
@@ -1523,7 +1523,7 @@ const blocks = [
 		map: {},
 		class: 'text',
 		func: async (sprite, script) => {
-				Entry.engine.fireEvent('when_scene_start');
+				Entry.engine.fireEvent('when_run_button_click');
 		},
 	},
 	{
@@ -1548,6 +1548,102 @@ const blocks = [
 		class: 'text',
 		func: async (sprite, script) => {
 				Entry.engine.fireEvent('mouse_clicked');
+		},
+	},
+	{
+		name: 'ExpressBlock_EventWhenMouseClickCanceled',
+		template: '마우스를 클릭을 해제했을 때 이벤트 발생시키기%1',
+		skeleton: 'basic',
+		color: {
+			default: '#e4e80e',
+			darken: '#e4e80e'
+		},
+		params: [
+			{
+				type: 'Indicator',
+				img: 'block_icon/start_icon_play.svg',
+				size: 11,
+			}
+		],
+		def: [
+			null
+		],
+		map: {},
+		class: 'text',
+		func: async (sprite, script) => {
+				Entry.engine.fireEvent('mouse_click_canceled');
+		},
+	},
+	{
+		name: 'ExpressBlock_EventWhenObjectClicked',
+		template: '오브젝트를 클릭했을 때 이벤트 발생시키기%1',
+		skeleton: 'basic',
+		color: {
+			default: '#e4e80e',
+			darken: '#e4e80e'
+		},
+		params: [
+			{
+				type: 'Indicator',
+				img: 'block_icon/start_icon_play.svg',
+				size: 11,
+			}
+		],
+		def: [
+			null
+		],
+		map: {},
+		class: 'text',
+		func: async (sprite, script) => {
+				Entry.engine.fireEvent('when_object_clicked');
+		},
+	},
+	{
+		name: 'ExpressBlock_EventWhenObjectClickCanceled',
+		template: '오브젝트를 클릭을 해제했을 때 이벤트 발생시키기%1',
+		skeleton: 'basic',
+		color: {
+			default: '#e4e80e',
+			darken: '#e4e80e'
+		},
+		params: [
+			{
+				type: 'Indicator',
+				img: 'block_icon/start_icon_play.svg',
+				size: 11,
+			}
+		],
+		def: [
+			null
+		],
+		map: {},
+		class: 'text',
+		func: async (sprite, script) => {
+				Entry.engine.fireEvent('mouse_clicked');
+		},
+	},
+	{
+		name: 'ExpressBlock_EventWhenSceneStart',
+		template: '장면이 시작되었을 때 이벤트 발생시키기%1',
+		skeleton: 'basic',
+		color: {
+			default: '#e4e80e',
+			darken: '#e4e80e'
+		},
+		params: [
+			{
+				type: 'Indicator',
+				img: 'block_icon/start_icon_play.svg',
+				size: 11,
+			}
+		],
+		def: [
+			null
+		],
+		map: {},
+		class: 'text',
+		func: async (sprite, script) => {
+				Entry.engine.fireEvent('when_scene_start');
 		},
 	},
 	{
@@ -1613,6 +1709,231 @@ const blocks = [
 		func: async (sprite, script) => {
 			eval(`${script.getValue('VARNAME', script)} = '${script.getValue('VALUE', script)}'`);
 			return script.callReturn();
+		},
+	},
+	{
+		name: 'ExpressBlock_ChangeEntryVar',
+		template: '엔트리 변수 %1 값을 %2 으로 변경%3',
+		skeleton: 'basic',
+		color: {
+			default: '#1dbfa1',
+			darken: '#1dbfa1'
+		},
+		params: [
+			{
+				type: 'Block',
+				accept: 'string'
+			},
+			{
+				type: 'Block',
+				accept: 'string'
+			},
+			{
+				type: 'Indicator',
+				img: 'block_icon/start_icon_play.svg',
+				size: 11,
+			}
+		],
+		def: [
+			{
+				type: 'text',
+				params: [`변수`]
+			},
+			{
+				type: 'text',
+				params: ['0']
+			},
+			null
+		],
+		map: {
+			ENTRYVARNAME: 0,
+			ENTRYVALUE: 1
+		},
+		class: 'text',
+		func: async (sprite, script) => {
+			Entry.variableContainer.getVariableByName(script.getValue('ENTRYVARNAME', script)).value_ = script.getValue('ENTRYVARVALUE', script);
+			return script.callReturn();
+		},
+	},
+	{
+		name: 'ExpressBlock_AddEntryListArray',
+		template: '엔트리 리스트 %1에 %2 추가하기%3',
+		skeleton: 'basic',
+		color: {
+			default: '#1dbfa1',
+			darken: '#1dbfa1'
+		},
+		params: [
+			{
+				type: 'Block',
+				accept: 'string'
+			},
+			{
+				type: 'Block',
+				accept: 'string'
+			},
+			{
+				type: 'Indicator',
+				img: 'block_icon/start_icon_play.svg',
+				size: 11,
+			}
+		],
+		def: [
+			{
+				type: 'text',
+				params: [`리스트`]
+			},
+			{
+				type: 'text',
+				params: ['0']
+			},
+			null
+		],
+		map: {
+			ENTRYADDLISTNAME: 0,
+			ENTRYADDLISTARRAY: 1
+		},
+		class: 'text',
+		func: async (sprite, script) => {
+			Entry.variableContainer.getListByName(script.getValue('ENTRYADDLISTNAME', script)).appendValue(script.getValue('ENTRYADDLISTARRAY', script));
+			return script.callReturn();
+		},
+	},
+	{
+		name: 'ExpressBlock_ChangeEntryListArray',
+		template: '엔트리 리스트 %1의 %2번째 항목을 %3 으로 변경%4',
+		skeleton: 'basic',
+		color: {
+			default: '#1dbfa1',
+			darken: '#1dbfa1'
+		},
+		params: [
+			{
+				type: 'Block',
+				accept: 'string'
+			},
+			{
+				type: 'Block',
+				accept: 'string'
+			},
+			{
+				type: 'Block',
+				accept: 'string'
+			},
+			{
+				type: 'Indicator',
+				img: 'block_icon/start_icon_play.svg',
+				size: 11,
+			}
+		],
+		def: [
+			{
+				type: 'text',
+				params: [`리스트`]
+			},
+			{
+				type: 'text',
+				params: ['1']
+			},
+			{
+				type: 'text',
+				params: ['0']
+			},
+			null
+		],
+		map: {
+			ENTRYCHANGLISTNAME: 0,
+			ENTRYCHANGELISTINDEX: 1,
+			ENTRYCHANGELISTARRAY: 2
+		},
+		class: 'text',
+		func: async (sprite, script) => {
+			Entry.variableContainer.getListByName(script.getValue('ENTRYCHANGELISTNAME', script)).list.replaceValue(script.getValue('ENTRYCHANGELISTINDEX', script), script.getValue('ENTRYCHANGELISTARRAY', script));
+			return script.callReturn();
+		},
+	},
+	{
+		name: 'ExpressBlock_DELETEEntryListArray',
+		template: '엔트리 리스트 %1의 모든 항목 삭제하기%2',
+		skeleton: 'basic',
+		color: {
+			default: '#1dbfa1',
+			darken: '#1dbfa1'
+		},
+		params: [
+			{
+				type: 'Block',
+				accept: 'string'
+			},
+			{
+				type: 'Indicator',
+				img: 'block_icon/start_icon_play.svg',
+				size: 11,
+			}
+		],
+		def: [
+			{
+				type: 'text',
+				params: [`리스트`]
+			},
+			null
+		],
+		map: {
+			ENTRYDELETELISTNAME: 0,
+		},
+		class: 'text',
+		func: async (sprite, script) => {
+			while(Entry.variableContainer.getListByName(script.getValue('ENTRYDELETELISTNAME', script)).getArray().length > 0){
+				Entry.variableContainer.getListByName(script.getValue('ENTRYDELETELISTNAME', script)).deleteValue(script.getValue('ENTRYDELETELISTNAME', script).getArray().length);
+			}
+			return script.callReturn();
+		},
+	},
+	{
+		name: 'ExpressBlock_ChangeEntryListArray',
+		template: '엔트리 리스트 %1에 %2가 포함되어 있을 때 그 위치',
+		skeleton: 'basic_string_field',
+		color: {
+			default: '#1dbfa1',
+			darken: '#1dbfa1'
+		},
+		params: [
+			{
+				type: 'Block',
+				accept: 'string'
+			},
+			{
+				type: 'Block',
+				accept: 'string'
+			}
+		],
+		def: [
+			{
+				type: 'text',
+				params: [`리스트`]
+			},
+			{
+				type: 'text',
+				params: ['엔트리']
+			}
+		],
+		map: {
+			ENTRYFINDLISTNAME: 0,
+			ENTRYFINDLISTSTRING: 1
+		},
+		class: 'text',
+		func: async (sprite, script) => {
+			let list = Entry.variableContainer.getListByName(script.getValue('ENTRYFINDLISTNAME', script));
+			if (!list) {
+				return null;
+			}
+			const arr = list.getArray();
+			for (let i = 0, len = arr.length; i < len; i++) {
+				if (arr[i].data.toString() == data.toString()) {
+					return i - 1;
+				}
+			}
+			return null;
 		},
 	},
 	{
@@ -1883,4 +2204,4 @@ async function ExpressBlockLoad() {
 	}
 }
 ExpressBlockLoad();
-console.log('%cExpress Block 4.4.1%c\n\n62045의 특급 블럭을 사용해주셔서 감사합니다.\n이 블럭은 tica_님의 EntBlocks 2.2를 사용하여 제작하였습니다.\nhttps://github.com/thoratica/entblocks\n\n%c엔트리: https://playentry.org/entry62045\nGitHub: https://github.com/entry62045\n특급 블럭: https://github.com/entry62045/expressblock', 'font-family: 맑은 고딕; color: #ffffff; background-color: #66AA33; border-radius: 10px; font-size: 26px; padding : 20px 30px', 'color: #000000; background-color: #FFFFFF; font-size: 18px;', 'color: #000000; background-color: #FFFFFF; font-size: 16px;');
+console.log('%cExpress Block 4.5%c\n\n62045의 특급 블럭을 사용해주셔서 감사합니다.\n이 블럭은 tica_님의 EntBlocks 2.2를 사용하여 제작하였습니다.\nhttps://github.com/thoratica/entblocks\n\n%c엔트리: https://playentry.org/entry62045\nGitHub: https://github.com/entry62045\n특급 블럭: https://github.com/entry62045/expressblock', 'font-family: 맑은 고딕; color: #ffffff; background-color: #66AA33; border-radius: 10px; font-size: 26px; padding : 20px 30px', 'color: #000000; background-color: #FFFFFF; font-size: 18px;', 'color: #000000; background-color: #FFFFFF; font-size: 16px;');
