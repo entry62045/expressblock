@@ -1503,30 +1503,6 @@ const blocks = [
 		class: 'text'
 	},
 	{
-		name: 'ExpressBlock_EventWhenRunButtonClick',
-		template: '시작하기 버튼을 클릭했을 때 이벤트 발생시키기%1',
-		skeleton: 'basic',
-		color: {
-			default: '#e4e80e',
-			darken: '#e4e80e'
-		},
-		params: [
-			{
-				type: 'Indicator',
-				img: 'block_icon/start_icon_play.svg',
-				size: 11,
-			}
-		],
-		def: [
-			null
-		],
-		map: {},
-		class: 'text',
-		func: async (sprite, script) => {
-				Entry.engine.fireEvent('when_run_button_click');
-		},
-	},
-	{
 		name: 'ExpressBlock_EventWhenMouseClicked',
 		template: '마우스를 클릭했을 때 이벤트 발생시키기%1',
 		skeleton: 'basic',
