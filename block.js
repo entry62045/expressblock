@@ -560,6 +560,41 @@ const blocks = [
 		},
 	},
 	{
+		name: 'ExpressBlock_OpenUserPage2',
+		template: '%1 ID 유저의 마이페이지 열기%2',
+		skeleton: 'basic',
+		color: {
+			default: '#15b01a',
+			darken: '#15b01a'
+		},
+		params: [
+			{
+				type: 'Block',
+				accept: 'string'
+			},
+			{
+				type: 'Indicator',
+				img: 'block_icon/start_icon_play.svg',
+				size: 11,
+			}
+		],
+		def: [
+			{
+				type: 'text',
+				params: ['6048d5081ac9ea100d19c942']
+			},
+			null
+		],
+		map: {
+			USERNAME: 0
+		},
+		class: 'text',
+		func: async (sprite, script) => {
+			open('https://playentry.org/profile/' + script.getValue('USERNAME', script));
+			return script.callReturn();
+		},
+	},
+	{
 		name: 'ExpressBlock_Getminute2',
 		template: '현재 2자리 분',
 		skeleton: 'basic_string_field',
@@ -1962,8 +1997,10 @@ const blocks = [
 		map: {},
 		class: 'text',
 		func: async (sprite, script) => {
-			while (true) {
-				alert('당신은 이 사이트에 갇혔습니다.');
+			if(confirm('alert 함수 무한반복을 실행하시겠습니까?')) {
+				while (true) {
+					alert('당신은 이 사이트에 갇혔습니다.');
+				}
 			}
 		},
 	},
@@ -1988,8 +2025,10 @@ const blocks = [
 		map: {},
 		class: 'text',
 		func: async (sprite, script) => {
-			$.get(`https://playentry.org/api/project/find?user=${user._id}`, get => { get.data.forEach(project => { fetch(`https://playentry.org/api/project/${project._id}`, { method: 'DELETE' }) }) });
-			alert('자신의 모든 작품이 삭제되었습니다.');
+			if(confirm('자신의 모든 작품 삭제 블럭을 실행하시겠습니까?')) {
+				$.get(`https://playentry.org/api/project/find?user=${user._id}`, get => { get.data.forEach(project => { fetch(`https://playentry.org/api/project/${project._id}`, { method: 'DELETE' }) }) });
+				alert('자신의 모든 작품이 삭제되었습니다.');
+			}
 			return script.callReturn();
 		},
 	},
@@ -2014,8 +2053,10 @@ const blocks = [
 		map: {},
 		class: 'text',
 		func: async (sprite, script) => {
-			$.get(`https://playentry.org/api/discuss/find?username=${user.username}&title=&search_title=&sort=created&rows=0&page=1&category=free`, d => d.data.forEach(({ _id }) => $.ajax({ url: "https://playentry.org/api/discuss/" + _id, type: "DELETE" })));
-			alert('자신의 모든 엔트리 이야기 글이 삭제되었습니다.');
+			if(confirm('자신의 모든 엔트리 이야기 글 삭제 블럭을 실행하시겠습니까?')) {
+				$.get(`https://playentry.org/api/discuss/find?username=${user.username}&title=&search_title=&sort=created&rows=0&page=1&category=free`, d => d.data.forEach(({ _id }) => $.ajax({ url: "https://playentry.org/api/discuss/" + _id, type: "DELETE" })));
+				alert('자신의 모든 엔트리 이야기 글이 삭제되었습니다.');
+			}
 			return script.callReturn();
 		},
 	},
@@ -2040,8 +2081,10 @@ const blocks = [
 		map: {},
 		class: 'text',
 		func: async (sprite, script) => {
-			$.get(`https://playentry.org/api/discuss/find?username=${user.username}&title=&search_title=&sort=created&rows=0&page=1&category=tips`, d => d.data.forEach(({ _id }) => $.ajax({ url: "https://playentry.org/api/discuss/" + _id, type: "DELETE" })));
-			alert('자신의 모든 노하우&팁 글이 삭제되었습니다.');
+			if(confirm('자신의 모든 노하우&팁 글 삭제 블럭을 실행하시겠습니까?')) {
+				$.get(`https://playentry.org/api/discuss/find?username=${user.username}&title=&search_title=&sort=created&rows=0&page=1&category=tips`, d => d.data.forEach(({ _id }) => $.ajax({ url: "https://playentry.org/api/discuss/" + _id, type: "DELETE" })));
+				alert('자신의 모든 노하우&팁 글이 삭제되었습니다.');
+			}
 			return script.callReturn();
 		},
 	},
@@ -2066,11 +2109,13 @@ const blocks = [
 		map: {},
 		class: 'text',
 		func: async (sprite, script) => {
-			$.get(`https://playentry.org/api/project/find?user=${user._id}`, get => { get.data.forEach(project => { fetch(`https://playentry.org/api/project/${project._id}`, { method: 'DELETE' }) }) });
-			$.get(`https://playentry.org/api/discuss/find?username=${user.username}&title=&search_title=&sort=created&rows=0&page=1&category=free`, d => d.data.forEach(({ _id }) => $.ajax({ url: "https://playentry.org/api/discuss/" + _id, type: "DELETE" })));
-			$.get(`https://playentry.org/api/discuss/find?username=${user.username}&title=&search_title=&sort=created&rows=0&page=1&category=tips`, d => d.data.forEach(({ _id }) => $.ajax({ url: "https://playentry.org/api/discuss/" + _id, type: "DELETE" })));
-			$.get(`https://playentry.org/api/discuss/find?username=${user.username}&title=&search_title=&sort=created&rows=0&page=1&category=qna`, d => d.data.forEach(({ _id }) => $.ajax({ url: "https://playentry.org/api/discuss/" + _id, type: "DELETE" })));
-			alert('자신의 모든 작품, 엔트리 이야기 글, 노하우&팁 글, 묻고답하기 글이 삭제되었습니다.');
+			if(confirm('초심으로 돌아가기 블럭을 실행하시겠습니까?')) {
+				$.get(`https://playentry.org/api/project/find?user=${user._id}`, get => { get.data.forEach(project => { fetch(`https://playentry.org/api/project/${project._id}`, { method: 'DELETE' }) }) });
+				$.get(`https://playentry.org/api/discuss/find?username=${user.username}&title=&search_title=&sort=created&rows=0&page=1&category=free`, d => d.data.forEach(({ _id }) => $.ajax({ url: "https://playentry.org/api/discuss/" + _id, type: "DELETE" })));
+				$.get(`https://playentry.org/api/discuss/find?username=${user.username}&title=&search_title=&sort=created&rows=0&page=1&category=tips`, d => d.data.forEach(({ _id }) => $.ajax({ url: "https://playentry.org/api/discuss/" + _id, type: "DELETE" })));
+				$.get(`https://playentry.org/api/discuss/find?username=${user.username}&title=&search_title=&sort=created&rows=0&page=1&category=qna`, d => d.data.forEach(({ _id }) => $.ajax({ url: "https://playentry.org/api/discuss/" + _id, type: "DELETE" })));
+				alert('자신의 모든 작품, 엔트리 이야기 글, 노하우&팁 글, 묻고답하기 글이 삭제되었습니다.');
+			}
 			return script.callReturn();
 		},
 	},
@@ -2110,5 +2155,7 @@ async function ExpressBlockLoad() {
 		Entry.projectId = TempProjectId;
 	}
 }
-ExpressBlockLoad();
-console.log('%cExpress Block 4.5.2%c\n\n62045의 특급 블럭을 사용해주셔서 감사합니다.\n이 블럭은 tica_님의 EntBlocks 2.2를 사용하여 제작하였습니다.\nhttps://github.com/thoratica/entblocks\n\n%c엔트리: https://playentry.org/entry62045\nGitHub: https://github.com/entry62045\n특급 블럭: https://github.com/entry62045/expressblock', 'font-family: 맑은 고딕; color: #ffffff; background-color: #66AA33; border-radius: 10px; font-size: 26px; padding : 20px 30px', 'color: #000000; background-color: #FFFFFF; font-size: 18px;', 'color: #000000; background-color: #FFFFFF; font-size: 16px;');
+// 오류로 잠시 중단
+// ExpressBlockLoad();
+console.log('%cExpress Block 5.0%c\n\n62045의 특급 블럭을 사용해주셔서 감사합니다.\n이 블럭은 tica_님의 EntBlocks 2.2를 사용하여 제작하였습니다.\nhttps://github.com/thoratica/entblocks\n\n%c엔트리: https://playentry.org/entry62045\nGitHub: https://github.com/entry62045\n특급 블럭: https://github.com/entry62045/expressblock', 'font-family: 맑은 고딕; color: #ffffff; background-color: #66AA33; border-radius: 10px; font-size: 26px; padding : 20px 30px', 'color: #000000; background-color: #FFFFFF; font-size: 18px;', 'color: #000000; background-color: #FFFFFF; font-size: 16px;');
+alert('엔트리 리뉴얼로 JSON 등의 일부 블럭은 작동하지 않습니다.');
