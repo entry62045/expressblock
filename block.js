@@ -1033,6 +1033,249 @@ const blocks = [
 		},
 	},
 	{
+		name: 'ExpressBlock_EntryLogin',
+		template: '엔트리 계정 로그인하기 아이디 %1 비밀번호 %2 %3',
+		skeleton: 'basic',
+		color: {
+			default: '#383838',
+			darken: '#383838'
+		},
+		params: [
+			{
+				type: 'Block',
+				accept: 'string'
+			},
+			{
+				type: 'Block',
+				accept: 'string'
+			},
+			{
+				type: 'Indicator',
+				img: 'block_icon/start_icon_play.svg',
+				size: 11,
+			}
+		],
+		def: [
+			{
+				type: 'text',
+				params: ['ID']
+			},
+			{
+				type: 'text',
+				params: ['PW']
+			},
+			null
+		],
+		map: {
+			USERNAME: 0,
+			PASSWORD: 1
+		},
+		class: 'text',
+		func: async (sprite, script) => {
+			var username = script.getValue('USERNAME', script);
+			var password = script.getValue('PASSWORD', script);
+			var remember = false;
+			await fetch('https://playentry.org/graphql', {
+				method: 'POST',
+				headers: {
+					'content-type': 'application/json',
+				},
+				body: JSON.stringify({
+				query: `mutation(
+					$username: String!
+					$password: String!
+					$rememberme: Boolean
+					$captchaValue: String
+					$captchaKey: String
+					$captchaType: String
+				) {
+					signinByUsername(
+					username: $username
+					password: $password
+					rememberme: $rememberme
+					captchaValue: $captchaValue
+					captchaKey: $captchaKey
+					captchaType: $captchaType
+				) {
+					id
+					username
+					nickname
+					role
+					isEmailAuth
+					isSnsAuth
+					isPhoneAuth
+					studentTerm
+					status {
+						userStatus
+					}
+					profileImage {
+						id
+						name
+						label {
+							ko
+							en
+							ja
+							vn
+						}
+						filename
+						imageType
+						dimension {
+							width
+							height
+						}
+						trimmed {
+							filename
+							width
+							height
+						}
+					}
+					banned {
+						username
+						nickname
+						reason
+						bannedCount
+						bannedType
+						projectId
+						startDate
+						userReflect {
+							status
+							endDate
+						}
+					}
+					}
+				}
+				`,
+				variables: { username, password, rememberme: remember },
+				}),
+			});
+		},
+	},
+	{
+		name: 'ExpressBlock_UserFollow',
+		template: '%1 유저를 팔로우하기 %2',
+		skeleton: 'basic',
+		color: {
+			default: '#383838',
+			darken: '#383838'
+		},
+		params: [
+			{
+				type: 'Block',
+				accept: 'string'
+			},
+			{
+				type: 'Indicator',
+				img: 'block_icon/start_icon_play.svg',
+				size: 11,
+			}
+		],
+		def: [
+			{
+				type: 'text',
+				params: ['609e57516614e402de674cb6']
+			},
+			null
+		],
+		map: {
+			USERNAMEFORFOLLOW: 0
+		},
+		class: 'text',
+		func: async (sprite, script) => {
+			var id = script.getValue('USERNAMEFORFOLLOW', script);
+			await fetch('https://playentry.org/graphql', {
+				method: 'POST',
+				headers: {
+					'content-type': 'application/json',
+				},
+				body: JSON.stringify({
+					query: `mutation FOLLOW($user: String) {
+					follow(user: $user) {
+						id
+						user {
+						id
+						username
+						nickname
+						profileImage {
+							id
+							name
+							label {
+							ko
+							en
+							ja
+							vn
+							__typename
+							}
+							filename
+							imageType
+							dimension {
+							width
+							height
+							__typename
+							}
+							trimmed {
+							filename
+							width
+							height
+							__typename
+							}
+							__typename
+						}
+						status {
+							following
+							follower
+							__typename
+						}
+						__typename
+						}
+						follow {
+						id
+						username
+						nickname
+						profileImage {
+							id
+							name
+							label {
+							ko
+							en
+							ja
+							vn
+							__typename
+							}
+							filename
+							imageType
+							dimension {
+							width
+							height
+							__typename
+							}
+							trimmed {
+							filename
+							width
+							height
+							__typename
+							}
+							__typename
+						}
+						status {
+							following
+							follower
+							__typename
+						}
+						__typename
+						}
+						__typename
+					}
+					}
+					`,
+					operationName: 'FOLLOW',
+					variables: {
+					user: id,
+					},
+				}),
+			})
+		}
+	},
+	{
 		name: 'ExpressBlock_JsonHelpBlocks',
 		template: '%1',
 		skeleton: 'basic_text',
@@ -2157,5 +2400,5 @@ async function ExpressBlockLoad() {
 }
 // 오류로 잠시 중단
 // ExpressBlockLoad();
-console.log('%cExpress Block 5.0.1%c\n\n62045의 특급 블럭을 사용해주셔서 감사합니다.\n이 블럭은 tica_님의 EntBlocks 2.2를 사용하여 제작하였습니다.\nhttps://github.com/thoratica/entblocks\n\n%c엔트리: https://playentry.org/entry62045\nGitHub: https://github.com/entry62045\n특급 블럭: https://github.com/entry62045/expressblock', 'font-family: 맑은 고딕; color: #ffffff; background-color: #66AA33; border-radius: 10px; font-size: 26px; padding : 20px 30px', 'color: #000000; background-color: #FFFFFF; font-size: 18px;', 'color: #000000; background-color: #FFFFFF; font-size: 16px;');
+console.log('%cExpress Block 5.1%c\n\n62045의 특급 블럭을 사용해주셔서 감사합니다.\n이 블럭은 tica_님의 EntBlocks 2.2를 사용하여 제작하였습니다.\nhttps://github.com/thoratica/entblocks\n\n%c엔트리: https://playentry.org/entry62045\nGitHub: https://github.com/entry62045\n특급 블럭: https://github.com/entry62045/expressblock', 'font-family: 맑은 고딕; color: #ffffff; background-color: #66AA33; border-radius: 10px; font-size: 26px; padding : 20px 30px', 'color: #000000; background-color: #FFFFFF; font-size: 18px;', 'color: #000000; background-color: #FFFFFF; font-size: 16px;');
 alert('엔트리 리뉴얼로 JSON 등의 일부 블럭은 작동하지 않습니다.');
