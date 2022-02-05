@@ -1310,7 +1310,7 @@ const blocks = [
 				},
 				body: JSON.stringify({
 					query: `
-						query: ($username: String) {
+						query ($username: String) {
 							user(username: $username) {
 								id
 							}
@@ -1355,7 +1355,7 @@ const blocks = [
 				},
 				body: JSON.stringify({
 					query: `
-						query: ($nickname: String) {
+						query ($nickname: String) {
 							user(nickname: $nickname) {
 								id
 							}
