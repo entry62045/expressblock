@@ -788,7 +788,7 @@ const blocks = [
 	},
 	{
 		name: 'ExpressBlock_FindUserBlocked',
-		template: '%1 유저는 영구정지되었는가?',
+		template: '%1 유저는 영구정지되었는가?(작동 안됨)',
 		skeleton: 'basic_boolean_field',
 		color: {
 			default: '#383838',
@@ -820,7 +820,7 @@ const blocks = [
 	},
 	{
 		name: 'ExpressBlock_FindUserBlockedVar',
-		template: '%1 유저는 영구정지되었는가?',
+		template: '%1 유저는 영구정지되었는가?(작동 안됨)',
 		skeleton: 'basic_string_field',
 		color: {
 			default: '#383838',
@@ -852,7 +852,7 @@ const blocks = [
 	},
 	{
 		name: 'ExpressBlock_FindUserDes',
-		template: '%1 유저의 설명',
+		template: '%1 유저의 설명(작동 안됨)',
 		skeleton: 'basic_string_field',
 		color: {
 			default: '#383838',
@@ -884,7 +884,7 @@ const blocks = [
 	},
 	{
 		name: 'ExpressBlock_FindUserRole',
-		template: '%1 유저의 역할',
+		template: '%1 유저의 역할(작동 안됨)',
 		skeleton: 'basic_string_field',
 		color: {
 			default: '#383838',
@@ -916,7 +916,7 @@ const blocks = [
 	},
 	{
 		name: 'ExpressBlock_FindUserGroup',
-		template: '%1 유저의 기본 학급',
+		template: '%1 유저의 기본 학급(작동 안됨)',
 		skeleton: 'basic_string_field',
 		color: {
 			default: '#383838',
@@ -998,7 +998,7 @@ const blocks = [
 	},
 	{
 		name: 'ExpressBlock_SaveProject',
-		template: '이 작품 저장하기%1',
+		template: '이 작품 저장하기(작동 안됨) %1',
 		skeleton: 'basic',
 		color: {
 			default: '#383838',
@@ -1148,11 +1148,12 @@ const blocks = [
 				variables: { username, password, rememberme: remember },
 				}),
 			});
+			return script.callReturn();
 		},
 	},
 	{
 		name: 'ExpressBlock_UserFollow',
-		template: '%1 유저를 팔로우하기 %2',
+		template: '%1 id 유저를 팔로우하기 %2',
 		skeleton: 'basic',
 		color: {
 			default: '#383838',
@@ -1272,7 +1273,311 @@ const blocks = [
 					user: id,
 					},
 				}),
-			})
+			});
+			return script.callReturn();
+		}
+	},
+	{
+		name: 'ExpressBlock_UsernameToID',
+		template: '%1 유저네임의 ID',
+		skeleton: 'basic_string_field',
+		color: {
+			default: '#383838',
+			darken: '#383838'
+		},
+		params: [
+			{
+				type: 'Block',
+				accept: 'string'
+			}
+		],
+		def: [
+			{
+				type: 'text',
+				params: ['entry62045']
+			}
+		],
+		map: {
+			USERNAMETOID: 0
+		},
+		class: 'text',
+		func: async (sprite, script) => {
+			var username = script.getValue('USERNAMETOID', script);
+			var id = (await (await fetch('https://playentry.org/graphql', {
+				method: 'POST',
+				headers: {
+					'Content-Type': 'application/json'
+				},
+				body: JSON.stringify({
+					query: `
+						query: ($username: String) {
+							user(username: username) {
+								id
+							}
+						}
+					`,
+					variables: { username: username }
+				})
+			})).json()).data.user.id;
+			return id;
+		},
+	},
+	{
+		name: 'ExpressBlock_NicknameToID',
+		template: '%1 닉네임의 ID',
+		skeleton: 'basic_string_field',
+		color: {
+			default: '#383838',
+			darken: '#383838'
+		},
+		params: [
+			{
+				type: 'Block',
+				accept: 'string'
+			}
+		],
+		def: [
+			{
+				type: 'text',
+				params: ['62045']
+			}
+		],
+		map: {
+			NICKNAMETOID: 0
+		},
+		class: 'text',
+		func: async (sprite, script) => {
+			var nickname = script.getValue('NICKNAMETOID', script);
+			var id = (await (await fetch('https://playentry.org/graphql', {
+				method: 'POST',
+				headers: {
+					'Content-Type': 'application/json'
+				},
+				body: JSON.stringify({
+					query: `
+						query: ($nickname: String) {
+							user(nickname: nickname) {
+								id
+							}
+						}
+					`,
+					variables: { nickname: nickname }
+				})
+			})).json()).data.user.id;
+			return id;
+		},
+	},
+	{
+		name: 'ExpressBlock_RecentFollowId',
+		template: '%1 id 유저의 마지막으로 팔로우 한 유저',
+		skeleton: 'basic_string_field',
+		color: {
+			default: '#383838',
+			darken: '#383838'
+		},
+		params: [
+			{
+				type: 'Block',
+				accept: 'string'
+			},
+			{
+				type: 'Block',
+				accept: 'string'
+			}
+		],
+		def: [
+			{
+				type: 'text',
+				params: [`10`]
+			}
+		],
+		map: {
+			USERNAMEFORRECENTFOLLOW: 0
+		},
+		class: 'text',
+		func: async (sprite, script) => {
+			let user = script.getValue("USERNAMEFORRECENTFOLLOW", script);
+			let id = (await (await fetch("https://playentry.org/graphql", {
+				method: 'POST',
+				headers: {
+					'content-type': 'application/json'
+				},
+				body: JSON.stringify({
+				query: `
+				query SELECT_FOLLOWINGS($user: String, $pageParam: PageParam, $searchAfter: JSON){
+				followings(user: $user, pageParam: $pageParam, searchAfter: $searchAfter) {
+				searchAfter
+				list {
+				id
+				follow {
+				id
+				username
+				nickname
+				profileImage {
+				id
+				name
+				label {
+				ko
+				en
+				ja
+				vn
+				}
+				filename
+				imageType
+				dimension {
+				width
+				height
+				}
+				trimmed {
+				filename
+				width
+				height
+				}
+				}
+				status {
+				following
+				follower
+				}
+				isFollow
+				projects {
+				id
+				thumb
+				name
+				}
+				}
+				}
+				}
+				}
+				`,
+				variables: { user: user, pageParam: { display: 8 }}
+				})
+			})).json()).data.followings.list[1].id;
+			return id;
+		},
+	},
+	{
+		name: 'ExpressBlock_UserUnFollow',
+		template: '%1 id 유저를 언팔로우하기 %2',
+		skeleton: 'basic',
+		color: {
+			default: '#383838',
+			darken: '#383838'
+		},
+		params: [
+			{
+				type: 'Block',
+				accept: 'string'
+			},
+			{
+				type: 'Indicator',
+				img: 'block_icon/start_icon_play.svg',
+				size: 11,
+			}
+		],
+		def: [
+			{
+				type: 'text',
+				params: ['10']
+			},
+			null
+		],
+		map: {
+			USERNAMEFORUNFOLLOW: 0
+		},
+		class: 'text',
+		func: async (sprite, script) => {
+			let user = script.getValue('USERNAMEFORUNFOLLOW', script);
+			await fetch('https://playentry.org/graphql', {
+				method: 'POST',
+				headers: {
+					'Content-Type': 'application/json'
+				},
+				body: JSON.stringify({
+				query: `
+					mutation UNFOLLOW ($user: String) {
+						unfollow(user: $user) {
+							id
+							id
+							user {
+								id
+								username
+								nickname
+								profileImage {
+									id
+									name
+									label {
+										ko
+										en
+										ja
+										vn
+									}
+									filename
+									imageType
+									dimension {
+										width
+										height
+									}
+									trimmed {
+										filename
+										width
+										height
+									}
+								}
+								status {
+									following
+									follower
+								}
+								isFollow
+								projects {
+									id
+									thumb
+									name
+								}
+							}
+							id
+							follow {
+								id
+								username
+								nickname
+								profileImage {
+									id
+									name
+									label {
+										ko
+										en
+										ja
+										vn
+									}
+									filename
+									imageType
+									dimension {
+										width
+										height
+									}
+									trimmed {
+										filename
+										width
+										height
+									}
+								}
+								status {
+									following
+									follower
+								}
+								isFollow
+								projects {
+									id
+									thumb
+									name
+								}
+							}
+						}
+					}
+				`,
+				variables: { user: user }
+				})
+			});
+			return script.callReturn();
 		}
 	},
 	{
@@ -1298,7 +1603,7 @@ const blocks = [
 	},
 	{
 		name: 'ExpressBlock_EntryDiscussFreeJSONHelp',
-		template: '%1 제목과 %2 내용의 엔트리 이야기 POST JSON',
+		template: '%1 제목과 %2 내용의 엔트리 이야기 POST JSON(작동 안됨)',
 		skeleton: 'basic_string_field',
 		color: {
 			default: '#383838',
@@ -2400,5 +2705,5 @@ async function ExpressBlockLoad() {
 }
 // 오류로 잠시 중단
 // ExpressBlockLoad();
-console.log('%cExpress Block 5.1%c\n\n62045의 특급 블럭을 사용해주셔서 감사합니다.\n이 블럭은 tica_님의 EntBlocks 2.2를 사용하여 제작하였습니다.\nhttps://github.com/thoratica/entblocks\n\n%c엔트리: https://playentry.org/entry62045\nGitHub: https://github.com/entry62045\n특급 블럭: https://github.com/entry62045/expressblock', 'font-family: 맑은 고딕; color: #ffffff; background-color: #66AA33; border-radius: 10px; font-size: 26px; padding : 20px 30px', 'color: #000000; background-color: #FFFFFF; font-size: 18px;', 'color: #000000; background-color: #FFFFFF; font-size: 16px;');
-alert('엔트리 리뉴얼로 JSON 등의 일부 블럭은 작동하지 않습니다.');
+console.log('%cExpress Block 5.2%c\n\n62045의 특급 블럭을 사용해주셔서 감사합니다.\n이 블럭은 tica_님의 EntBlocks 2.2를 사용하여 제작하였습니다.\nhttps://github.com/thoratica/entblocks\n\n%c엔트리: https://playentry.org/entry62045\nGitHub: https://github.com/entry62045\n특급 블럭: https://github.com/entry62045/expressblock', 'font-family: 맑은 고딕; color: #ffffff; background-color: #66AA33; border-radius: 10px; font-size: 26px; padding : 20px 30px', 'color: #000000; background-color: #FFFFFF; font-size: 18px;', 'color: #000000; background-color: #FFFFFF; font-size: 16px;');
+// alert('엔트리 리뉴얼로 JSON 등의 일부 블럭은 작동하지 않습니다.');
