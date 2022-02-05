@@ -1311,7 +1311,7 @@ const blocks = [
 				body: JSON.stringify({
 					query: `
 						query: ($username: String) {
-							user(username: username) {
+							user(username: $username) {
 								id
 							}
 						}
@@ -1356,7 +1356,7 @@ const blocks = [
 				body: JSON.stringify({
 					query: `
 						query: ($nickname: String) {
-							user(nickname: nickname) {
+							user(nickname: $nickname) {
 								id
 							}
 						}
@@ -1451,7 +1451,7 @@ const blocks = [
 				`,
 				variables: { user: user, pageParam: { display: 8 }}
 				})
-			})).json()).data.followings.list[1].id;
+			})).json()).data.followings.list[0].follow.id;
 			return id;
 		},
 	},
@@ -2554,7 +2554,7 @@ const blocks = [
 	},
 	{
 		name: 'ExpressBlock_DeleteAllMyProject',
-		template: '자신의 모든 작품 삭제%1',
+		template: '자신의 모든 작품 삭제(작동 안됨) %1',
 		skeleton: 'basic',
 		color: {
 			default: '#FF0000',
@@ -2582,7 +2582,7 @@ const blocks = [
 	},
 	{
 		name: 'ExpressBlock_DeleteAllMyFreeDiscuss',
-		template: '자신의 모든 엔트리 이야기 글 삭제%1',
+		template: '자신의 모든 엔트리 이야기 글 삭제(작동 안됨) %1',
 		skeleton: 'basic',
 		color: {
 			default: '#FF0000',
@@ -2610,7 +2610,7 @@ const blocks = [
 	},
 	{
 		name: 'ExpressBlock_DeleteAllMyTipDiscuss',
-		template: '자신의 모든 노하우&팁 글 삭제%1',
+		template: '자신의 모든 노하우&팁 글 삭제(작동 안됨) %1',
 		skeleton: 'basic',
 		color: {
 			default: '#FF0000',
@@ -2638,7 +2638,7 @@ const blocks = [
 	},
 	{
 		name: 'ExpressBlock_DeleteAll',
-		template: '초심으로 돌아가기%1',
+		template: '초심으로 돌아가기(작동 안됨) %1',
 		skeleton: 'basic',
 		color: {
 			default: '#FF0000',
