@@ -1,5 +1,10 @@
-window.Entry = document.querySelector('iframe.css-1sbyuvq.eaizycc0').contentWindow.Entry;
-window.EntryStatic = document.querySelector('iframe.css-1sbyuvq.eaizycc0').contentWindow.EntryStatic;
+try {
+	Entry.getMainWS();
+}
+catch {
+	window.Entry = document.querySelector('iframe.css-1sbyuvq.eaizycc0').contentWindow.Entry;
+	window.EntryStatic = document.querySelector('iframe.css-1sbyuvq.eaizycc0').contentWindow.EntryStatic;
+}
 const LibraryCreator = {
 	start: (blocksJSON, category, text) => {
 		let blockArray = new Array;
