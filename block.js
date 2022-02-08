@@ -2689,7 +2689,9 @@ const blocks = [
 		class: 'text'
 	}
 ]
+// 블럭 불러오기
 LibraryCreator.start(blocks, 'API', '특급');
+// 리뉴얼 이전 장면 1 로드 함수
 async function ExpressBlockLoad() {
 	if(Entry.getMainWS() && Entry.projectId) {
 		const TempProjectId = Entry.projectId;
@@ -2703,7 +2705,151 @@ async function ExpressBlockLoad() {
 		Entry.projectId = TempProjectId;
 	}
 }
+// 리뉴얼 이후 장면 1 로드 함수
+async function ExpressBlockLoadNew() {
+	if(Entry.getMainWS() && Entry.projectId) {
+		const TempProjectId = Entry.projectId;
+		const ExportedProject = Entry.exportProject();
+		const ProjectData = (await (await await fetch('https://playentry.org/graphql', {
+			method: 'POST',
+			headers: {
+				'content-type': 'application/json'
+			},
+			body: JSON.stringify({
+				query:
+				` query SELECT_PROJECT($id: ID! $groupId: ID) {
+					project(id: $id, groupId: $groupId) {
+						id
+						name
+						user {
+							id
+							nickname
+							username
+							profileImage {
+								id
+								name
+								label {
+									ko
+									en
+									ja
+									vn
+								}
+								filename
+								imageType
+								dimension {
+									width
+									height
+								}
+								trimmed {
+									filename
+									width
+									height
+								}
+							}
+							status {
+								following
+								follower
+							}
+							description
+							role
+						}
+						visit
+						speed
+						objects
+						variables
+						cloudVariable
+						messages
+						functions
+						tables
+						scenes
+						thumb
+						isopen
+						blamed
+						isPracticalCourse
+						category
+						categoryCode
+						created
+						updated
+						shortenUrl
+						parent {
+							id
+							name
+							user {
+								id
+								username
+								nickname
+							}
+						}
+						likeCnt
+						favorite
+						special
+						isForLecture
+						isForStudy
+						isForSubmit
+						hashId
+						complexity
+						staffPicked
+						ranked
+						submitId {
+							id
+						}
+						description
+						description2
+						description3
+						hasRealTimeVariable
+						realTimeVariable {
+							variableType
+							key
+							value
+							array {
+								key
+								data
+							}
+							minValue
+							maxValue
+							visible
+							x
+							y
+							width
+							height
+							object
+						}
+						commentGroup {
+							group
+							count
+						}
+						likeCntGroup {
+							group
+							count
+						}
+						visitGroup {
+							group
+							count
+						}
+						recentGroup {
+							group
+							count
+						}
+						learning
+						expansionBlocks
+						aiUtilizeBlocks
+						childCnt
+					}
+				}
+				`,
+				variables: { id: TempProjectId }
+			})
+		})).json()).data.project;
+		Entry.clearProject();
+		Entry.loadProject(Object.keys(ExportedProject).reduce((acc, cur) => {
+			acc[cur] = ProjectData[cur];
+			return acc;
+		}, {}));
+		Entry.projectId = TempProjectId;
+	}
+}
 // 오류로 잠시 중단
 // ExpressBlockLoad();
-console.log('%cExpress Block 5.2%c\n\n62045의 특급 블럭을 사용해주셔서 감사합니다.\n이 블럭은 tica_님의 EntBlocks 2.2를 사용하여 제작하였습니다.\nhttps://github.com/thoratica/entblocks\n\n%c엔트리: https://playentry.org/entry62045\nGitHub: https://github.com/entry62045\n특급 블럭: https://github.com/entry62045/expressblock', 'font-family: 맑은 고딕; color: #ffffff; background-color: #66AA33; border-radius: 10px; font-size: 26px; padding : 20px 30px', 'color: #000000; background-color: #FFFFFF; font-size: 18px;', 'color: #000000; background-color: #FFFFFF; font-size: 16px;');
+ExpressBlockLoadNew();
+console.log('%cExpress Block 5.3%c\n\n62045의 특급 블럭을 사용해주셔서 감사합니다.\n이 블럭은 tica_님의 EntBlocks 2.2를 사용하여 제작하였습니다.\nhttps://github.com/thoratica/entblocks\n\n%c엔트리: https://playentry.org/entry62045\nGitHub: https://github.com/entry62045\n특급 블럭: https://github.com/entry62045/expressblock', 'font-family: 맑은 고딕; color: #ffffff; background-color: #66AA33; border-radius: 10px; font-size: 26px; padding : 20px 30px', 'color: #000000; background-color: #FFFFFF; font-size: 18px;', 'color: #000000; background-color: #FFFFFF; font-size: 16px;');
 // alert('엔트리 리뉴얼로 JSON 등의 일부 블럭은 작동하지 않습니다.');
